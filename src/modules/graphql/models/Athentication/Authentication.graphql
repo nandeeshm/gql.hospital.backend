@@ -1,0 +1,18 @@
+input LoginInputType {
+    username: String!
+    password: String!
+}
+
+type AuthenticatedUser {
+    name: String!
+    surname: String!
+    username: String!
+    role: Int!
+    token: String!
+}
+
+union AuthenticatedUserUnion = AuthenticatedUser | ApiError
+
+type Mutation {
+    login(data: LoginInputType!): AuthenticatedUserUnion!
+}

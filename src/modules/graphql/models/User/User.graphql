@@ -1,0 +1,13 @@
+type UserType {
+    id: ID!
+    name: String!
+    surname: String!
+    username: String!
+    password: String!
+    role: Int!
+    token: String!
+    lastLoginAt: DateTime!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    enabled: Boolean!
+}

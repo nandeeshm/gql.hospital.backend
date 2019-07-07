@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  mongo-test:
+    image: mongo:latest
+    container_name: gql-hospital-mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=admin
+    ports: 
+      - "27017:27017"
+    volumes: 
+      # - ./data/db:/data/db
+      # - gql-hospital-database:/data/db
+      - ./configure-database:/docker-entrypoint-initdb.d:rw
+      - type: volume
+        source: gql-hospital-database
+        target: /data/db
+        consistency: consistent
+
+volumes:
+  gql-hospital-database:
+    driver: local
+    external: true

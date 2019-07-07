@@ -1,0 +1,67 @@
+{
+  "name": "graphql.fullstack.development.backend",
+  "version": "1.0.0",
+  "description": "Patients management system backend.",
+  "main": "src/server.ts",
+  "scripts": {
+    "build:dev": "webpack --config ./webpack/webpack.dev.js",
+    "build:prod": "webpack --config ./webpack/webpack.prod.js",
+    "database:build": "npm run database:build_volume; npm run database:build_container",
+    "database:build_volume": "docker volume create gql-hospital-database",
+    "database:build_container": "docker-compose -f ./docker/docker-compose.yml up --no-start",
+    "database:start": "docker container start gql-hospital-mongodb",
+    "database:restart": "docker container restart gql-hospital-mongodb",
+    "database:remove": "npm run database:remove_container; npm run database:remove_volume",
+    "database:remove_volume": "docker volume rm -f gql-hospital-database",
+    "database:remove_container": "docker container rm -f gql-hospital-mongodb",
+    "test:hashPassword": "node tests/mockedData/scripts/hashPassword/hashPassword.js"
+  },
+  "keywords": [
+    "Typegraphql",
+    "GraphQL",
+    "Webpack",
+    "HRM",
+    "Hot Reload Module",
+    "Nodemon",
+    "NodeJS",
+    "Backend",
+    "API"
+  ],
+  "author": "Dailos Rafael Díaz Lara <ddialar@gmail.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddialar/grpahql.fullstack.backend"
+  },
+  "homepage": "https://github.com/ddialar/grpahql.fullstack.backend#readme",
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/bluebird": "^3.5.27",
+    "@types/graphql": "^14.2.2",
+    "@types/mongodb": "^3.1.28",
+    "@types/mongoose": "^5.5.7",
+    "@types/node": "^12.0.12",
+    "@types/webpack-env": "^1.13.9",
+    "class-transformer": "^0.2.3",
+    "clean-webpack-plugin": "^3.0.0",
+    "dotenv-webpack": "^1.7.0",
+    "graphql-import": "^0.7.1",
+    "graphql-import-loader": "^0.2.1",
+    "nodemon-webpack-plugin": "^4.0.8",
+    "ts-loader": "^6.0.4",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.2",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5",
+    "webpack-merge": "^4.2.1",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "apollo-server": "^2.6.7",
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.5.5",
+    "graphql": "^14.4.2",
+    "log4js": "^4.4.0",
+    "mongoose": "^5.6.3"
+  }
+}
