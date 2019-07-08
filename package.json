@@ -24,7 +24,7 @@
   "scripts": {
     "start": "node dist/bundle.js",
     "build:dev": "webpack --config ./webpack/webpack.dev.js --info-verbosity none",
-    "build:prod": "webpack --config ./webpack/webpack.prod.js",
+    "build:pro": "webpack --config ./webpack/webpack.prod.js",
     "database:build": "npm run database:build_volume; npm run database:build_container",
     "database:build_volume": "docker volume create gql-hospital-database",
     "database:build_container": "docker-compose -f ./docker/docker-compose.yml up --no-start",
