@@ -24,9 +24,9 @@ module.exports = {
         alias: {
             '@logger': path.resolve(__dirname, '../src/core/common/logger'),
             '@services': path.resolve(__dirname, '../src/core/services/'),
-            '@typeDefs': path.resolve(__dirname, '../src/modules/graphql/'),
+            '@apiErrors': path.resolve(__dirname, '../src/core/models/ApiError'),
+            '@entities': path.resolve(__dirname, '../src/core/entities/'),
             '@resolvers': path.resolve(__dirname, '../src/modules/graphql/resolvers'),
-            '@apiErrors': path.resolve(__dirname, '../src/modules/graphql/ApiError'),
             '@mongodb': path.resolve(__dirname, '../src/modules/mongodb')
         }
     },

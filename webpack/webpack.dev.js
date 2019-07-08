@@ -24,7 +24,7 @@ module.exports = merge.smart(common, {
             watch: path.resolve('./dist'),
             script: './dist/bundle.js',
             verbose: true,
-            ext: 'js'
+            ext: 'js,graphql'
         }),
         new CleanWebpackPlugin(), 
         new webpack.HotModuleReplacementPlugin()

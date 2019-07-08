@@ -1,4 +1,4 @@
-import { ApiError } from '@apiErrors';
+import { ApiError } from '@entities/ApiError';
 
 const errorCode: number = 401;
 

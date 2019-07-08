@@ -1,9 +1,13 @@
-import loginResolver from './models/Athentication/login.resolver';
-import UserResolver from './models/User/user.resolver';
+// import loginResolver from './models/Athentication/login.resolver';
+import UserResolvers from './models/User/user.resolvers';
 
-const resolvers = [
-    loginResolver,
-    UserResolver
-];
+// import DateTime      from './scalars/DateTime';
 
-export default resolvers;
+const Query = {
+    ...UserResolvers.Query
+};
+
+export default {
+    Query,
+    // DateTime
+};

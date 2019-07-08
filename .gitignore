@@ -2,8 +2,5 @@ node_modules
 dist
 logs
 
-src/modules/graphql/schema.graphql
-docker/data/db
-
 .DS_Store
 package-lock.json

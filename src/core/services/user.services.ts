@@ -1,8 +1,8 @@
 // REMOVE the 'plainToClass' import.
 import { plainToClass }          from 'class-transformer';
 
-import { UserDoesNotExistError } from '@apiErrors';
-import { User, UserSearchUnion } from '@typeDefs/models/User/user.type';
+import { UserDoesNotExistError, ApiError } from '@entities/ApiError';
+import { User } from '@entities/User';
 
 // REMOVE the 'mockedUsers' structure.
 let mockedUsers = plainToClass(
@@ -47,18 +47,19 @@ let mockedUsers = plainToClass(
     ]
 );
 
-// const getUser = async (userId: string): Promise<User | UserDoesNotExistError> => {
-const getUser = async (userId: string): Promise<typeof UserSearchUnion> => {
+// const getUser = async (userId: string): Promise<User | ApiError> => {
+const getUser = async (userId: string): Promise<User | ApiError> => {
     // TODO access the persisted users and get the selected one by its user ID.
     let obtainedUser = mockedUsers.find(user => user.id === userId);
     return (obtainedUser) ? obtainedUser : new UserDoesNotExistError();
+    // return obtainedUser!;
 };
 
-const getUsers = async (): Promise<User[] | undefined> => {
-    return mockedUsers;
-};
+// const getUsers = async (): Promise<User[] | undefined> => {
+//     return mockedUsers;
+// };
 
 export {
     getUser,
-    getUsers
+    // getUsers
 }
