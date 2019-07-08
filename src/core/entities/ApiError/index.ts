@@ -1,3 +1,3 @@
-export * from './api.error.type';
+export * from './api.error.entity';
 export * from './AuthenticationErrors';
 export * from './UserErrors';

@@ -6,9 +6,9 @@ class User {
     private _password: string;
     role: number;
     token: string;
-    // lastLoginAt: Date;
-    // createdAt: Date;
-    // updatedAt: Date;
+    lastLoginAt: Date;
+    createdAt: Date;
+    updatedAt: Date;
     enabled: boolean = true;
 
     get password(): string {
