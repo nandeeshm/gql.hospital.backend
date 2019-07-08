@@ -6,8 +6,6 @@ import { importSchema } from 'graphql-import';
 import { ApolloServer } from 'apollo-server';
 import resolvers        from '@resolvers';
 
-import * as mongodb     from '@mongodb';
-
 // console.log('>>>>>>>>>>>>', path.join(__dirname, './modules/graphql/schema.graphql'));
 // console.log('>>>>>>>>>>>>', path.join(process.env.PWD!, 'src/modules/graphql/schema.graphql'));
 
@@ -18,14 +16,6 @@ const typeDefs = importSchema(schemaAbsolutePath);
 // const typeDefs = importSchema(path.join(__dirname, './modules/graphql/schema.graphql'));
 
 // console.log(typeDefs);
-
-
-// try {
-//     await mongodb.connect();
-// } catch (error) {
-//     logger.error('Error starting up the database connection.', error.message);
-//     process.exit(0);
-// }
 
 const server = new ApolloServer({
     typeDefs,
@@ -47,6 +37,5 @@ if (module.hot) {
     module.hot.accept();
     module.hot.dispose(() => {
         server.stop();
-        // mongodb.disconnect();
     });
 }

@@ -26,8 +26,7 @@ module.exports = {
             '@services': path.resolve(__dirname, '../src/core/services/'),
             '@apiErrors': path.resolve(__dirname, '../src/core/models/ApiError'),
             '@entities': path.resolve(__dirname, '../src/core/entities/'),
-            '@resolvers': path.resolve(__dirname, '../src/modules/graphql/resolvers'),
-            '@mongodb': path.resolve(__dirname, '../src/modules/mongodb')
+            '@resolvers': path.resolve(__dirname, '../src/modules/graphql/resolvers')
         }
     },
     target: 'node'

@@ -21,7 +21,7 @@ var loggerConfiguration = {
     categories: {
         default: { 
             appenders: process.env.NODE_ENV !== 'production' ? ['out', 'app'] : ['app'],
-            level: process.env.LOGGER_LEVEL_FOR_CONSOLE
+            level: process.env.LOGGER_LEVEL
         }
     }
 };

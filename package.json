@@ -22,6 +22,7 @@
   "homepage": "https://github.com/ddialar/grpahql.fullstack.backend#readme",
   "main": "src/server.ts",
   "scripts": {
+    "start": "node dist/bundle.js",
     "build:dev": "webpack --config ./webpack/webpack.dev.js --info-verbosity none",
     "build:prod": "webpack --config ./webpack/webpack.prod.js",
     "database:build": "npm run database:build_volume; npm run database:build_container",
@@ -36,7 +37,6 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
-    "@types/bluebird": "^3.5.27",
     "@types/graphql": "^14.2.2",
     "@types/mongodb": "^3.1.28",
     "@types/mongoose": "^5.5.7",
@@ -59,9 +59,7 @@
   "dependencies": {
     "apollo-server": "^2.6.7",
     "bcryptjs": "^2.4.3",
-    "bluebird": "^3.5.5",
     "graphql": "^14.4.2",
-    "log4js": "^4.4.0",
-    "mongoose": "^5.6.3"
+    "log4js": "^4.4.0"
   }
 }
