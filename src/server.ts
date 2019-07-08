@@ -8,14 +8,17 @@ import resolvers        from '@resolvers';
 
 import * as mongodb     from '@mongodb';
 
-console.log('>>>>>>>>>>>>', path.join(__dirname, './modules/graphql/schema.graphql'));
-console.log('>>>>>>>>>>>>', path.join(process.env.PWD!, 'src/modules/graphql/schema.graphql'));
+// console.log('>>>>>>>>>>>>', path.join(__dirname, './modules/graphql/schema.graphql'));
+// console.log('>>>>>>>>>>>>', path.join(process.env.PWD!, 'src/modules/graphql/schema.graphql'));
 
 const schemaAbsolutePath: string = path.join(process.env.PWD!, 'src/modules/graphql/schema.graphql');
 
 
 const typeDefs = importSchema(schemaAbsolutePath);
 // const typeDefs = importSchema(path.join(__dirname, './modules/graphql/schema.graphql'));
+
+// console.log(typeDefs);
+
 
 // try {
 //     await mongodb.connect();

@@ -2,20 +2,6 @@
   "name": "graphql.fullstack.development.backend",
   "version": "1.0.0",
   "description": "Patients management system backend.",
-  "main": "src/server.ts",
-  "scripts": {
-    "build:dev": "webpack --config ./webpack/webpack.dev.js",
-    "build:prod": "webpack --config ./webpack/webpack.prod.js",
-    "database:build": "npm run database:build_volume; npm run database:build_container",
-    "database:build_volume": "docker volume create gql-hospital-database",
-    "database:build_container": "docker-compose -f ./docker/docker-compose.yml up --no-start",
-    "database:start": "docker container start gql-hospital-mongodb",
-    "database:restart": "docker container restart gql-hospital-mongodb",
-    "database:remove": "npm run database:remove_container; npm run database:remove_volume",
-    "database:remove_volume": "docker volume rm -f gql-hospital-database",
-    "database:remove_container": "docker container rm -f gql-hospital-mongodb",
-    "test:hashPassword": "node tests/mockedData/scripts/hashPassword/hashPassword.js"
-  },
   "keywords": [
     "Typegraphql",
     "GraphQL",
@@ -34,6 +20,20 @@
     "url": "git+https://github.com/ddialar/grpahql.fullstack.backend"
   },
   "homepage": "https://github.com/ddialar/grpahql.fullstack.backend#readme",
+  "main": "src/server.ts",
+  "scripts": {
+    "build:dev": "webpack --config ./webpack/webpack.dev.js --info-verbosity none",
+    "build:prod": "webpack --config ./webpack/webpack.prod.js",
+    "database:build": "npm run database:build_volume; npm run database:build_container",
+    "database:build_volume": "docker volume create gql-hospital-database",
+    "database:build_container": "docker-compose -f ./docker/docker-compose.yml up --no-start",
+    "database:start": "docker container start gql-hospital-mongodb",
+    "database:restart": "docker container restart gql-hospital-mongodb",
+    "database:remove": "npm run database:remove_container; npm run database:remove_volume",
+    "database:remove_volume": "docker volume rm -f gql-hospital-database",
+    "database:remove_container": "docker container rm -f gql-hospital-mongodb",
+    "mock:hashPassword": "node tests/mockedData/scripts/hashPassword/hashPassword.js"
+  },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/bluebird": "^3.5.27",

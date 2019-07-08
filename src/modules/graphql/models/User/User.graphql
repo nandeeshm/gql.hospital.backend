@@ -1,21 +1,22 @@
-type UserType {
+# import ApiError from '../ApiError/ApiError.graphql'
+# import DateTime from '../../scalars//DateTime/DateTime.graphql'
+
+type User {
     id: ID
     name: String
     surname: String
     username: String
     role: Int
     token: String
-    # lastLoginAt: DateTime!
-    # createdAt: DateTime!
-    # updatedAt: DateTime!
+    lastLoginAt: DateTime
+    createdAt: DateTime
+    updatedAt: DateTime
     enabled: Boolean
 }
 
-union UserUnion = UserType | ApiError
+union UserUnion = User | ApiError
 
 type Query {
-    # getUser(
-    #     id: String!): UserType!
     getUser(
         id: String!): UserUnion!
     # getUsers: [UserUnion]!

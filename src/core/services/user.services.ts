@@ -16,7 +16,7 @@ let mockedUsers = plainToClass(
             password: '123456',
             role: 3,
             token: '',
-            lastLogin: new Date(),
+            lastLoginAt: new Date(),
             createdAt: new Date(),
             updatedAt: new Date()
         },
@@ -28,7 +28,7 @@ let mockedUsers = plainToClass(
             password: '123456',
             role: 2,
             token: '',
-            lastLogin: new Date(),
+            lastLoginAt: new Date(),
             createdAt: new Date(),
             updatedAt: new Date()
         },
@@ -40,19 +40,17 @@ let mockedUsers = plainToClass(
             password: '123456',
             role: 1,
             token: '',
-            lastLogin: new Date(),
+            lastLoginAt: new Date(),
             createdAt: new Date(),
             updatedAt: new Date()
         },
     ]
 );
 
-// const getUser = async (userId: string): Promise<User | ApiError> => {
 const getUser = async (userId: string): Promise<User | ApiError> => {
     // TODO access the persisted users and get the selected one by its user ID.
     let obtainedUser = mockedUsers.find(user => user.id === userId);
     return (obtainedUser) ? obtainedUser : new UserDoesNotExistError();
-    // return obtainedUser!;
 };
 
 // const getUsers = async (): Promise<User[] | undefined> => {

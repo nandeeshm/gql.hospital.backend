@@ -1,4 +1,4 @@
-type ApiErrorType {
+type ApiError {
     code: Int!
     message: String!
     description: String

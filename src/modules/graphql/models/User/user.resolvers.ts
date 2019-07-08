@@ -12,12 +12,22 @@ import { User }      from '@entities/User';
 
 export default {
     Query: {
-        // getUser: async (id: string): Promise<User | ApiError> => {
-        async getUser(parentValue: any, args: any, context: any): Promise<User | ApiError> {
+        getUser: async (parentValue: any, args: any, context: any): Promise<User | ApiError> => {
             logger.trace(`Getting user with id: ${args.id} ...`);
             return await services.getUser(args.id);
-            // logger.trace(`Getting user with id: ${JSON.stringify(args)} ...`);
-            // return await services.getUser('abcde');
+        }
+    },
+    Unions: {
+        UserUnion: {
+            __resolveType(parentValues: User | ApiError) {
+                if (parentValues instanceof User) {
+                    return 'User';
+                } else if (parentValues instanceof ApiError) {
+                    return 'ApiError';
+                } else {
+                    return null;
+                }
+            }
         }
     }
 };

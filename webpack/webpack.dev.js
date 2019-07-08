@@ -21,12 +21,11 @@ module.exports = merge.smart(common, {
             path: './config/development.env'
         }),
         new NodemonPlugin({
-            watch: path.resolve('./dist'),
-            script: './dist/bundle.js',
+            watch: path.resolve('./src'),
+            // script: './dist/bundle.js',
             verbose: true,
-            ext: 'js,graphql'
+            ext: 'ts,js,graphql'
         }),
-        new CleanWebpackPlugin(), 
         new webpack.HotModuleReplacementPlugin()
     ],
     watch: true
