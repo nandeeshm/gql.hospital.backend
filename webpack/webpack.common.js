@@ -23,10 +23,13 @@ module.exports = {
         extensions: ['.ts', '.js'],
         alias: {
             '@logger': path.resolve(__dirname, '../src/core/common/logger'),
+            '@ports': path.resolve(__dirname, '../src/ports'),
+            '@adapters': path.resolve(__dirname, '../src/adapters'),
             '@services': path.resolve(__dirname, '../src/core/services/'),
             '@apiErrors': path.resolve(__dirname, '../src/core/models/ApiError'),
             '@entities': path.resolve(__dirname, '../src/core/entities/'),
             '@resolvers': path.resolve(__dirname, '../src/modules/graphql/resolvers'),
+            '@dbRequests': path.resolve(__dirname, '../src/modules/mongodb/requests'),
             '@mongodb': path.resolve(__dirname, '../src/modules/mongodb')
         }
     },

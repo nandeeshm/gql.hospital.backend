@@ -20,12 +20,7 @@ const typeDefs = importSchema(schemaAbsolutePath);
 // console.log(typeDefs);
 
 
-// try {
-//     await mongodb.connect();
-// } catch (error) {
-//     logger.error('Error starting up the database connection.', error.message);
-//     process.exit(0);
-// }
+// mongodb.connect();
 
 const server = new ApolloServer({
     typeDefs,

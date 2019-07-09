@@ -1,5 +1,7 @@
 import mongoose = require('mongoose');
 
+import { User } from '@entities/User';
+
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
@@ -15,6 +17,6 @@ var UserSchema = new Schema({
     enabled: { type: Boolean, required: true }
 });
 
-var User = mongoose.model('User', UserSchema);
+const UserModel = mongoose.model<User & mongoose.Document>('User', UserSchema);
 
-export default User;
+export default UserModel;

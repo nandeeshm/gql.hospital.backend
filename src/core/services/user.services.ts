@@ -1,8 +1,17 @@
+import logger from "@logger";
+
 // REMOVE the 'plainToClass' import.
 import { plainToClass }          from 'class-transformer';
 
-import { UserDoesNotExistError, ApiError } from '@entities/ApiError';
+import { 
+    ApiError,
+    UserDoesNotExistError,
+    UserBadRequestError
+} from '@entities/ApiError';
 import { User } from '@entities/User';
+
+// REMOVE moving this import to the specific adapter.
+import { getUserById } from '@dbRequests';
 
 // REMOVE the 'mockedUsers' structure.
 let mockedUsers = plainToClass(
@@ -48,9 +57,13 @@ let mockedUsers = plainToClass(
 );
 
 const getUser = async (userId: string): Promise<User | ApiError> => {
-    // TODO access the persisted users and get the selected one by its user ID.
-    let obtainedUser = mockedUsers.find(user => user.id === userId);
-    return (obtainedUser) ? obtainedUser : new UserDoesNotExistError();
+    try {
+        // TODO access the persisted users and get the selected one by its user ID.
+        let obtainedUser = await getUserById(userId);
+        return (obtainedUser) ? plainToClass(User, obtainedUser) : new UserDoesNotExistError();
+    } catch (error) {
+        return new UserBadRequestError(error.message);
+    }
 };
 
 // const getUsers = async (): Promise<User[] | undefined> => {

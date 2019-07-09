@@ -7,3 +7,5 @@
     Por ejemplo, si estamos obteniendo un User, mogoose devuelve un tipo de dato Document. Esto requiere que en la definición de la entidad User, se importe mongoose y que la clase que define la entidad User extienda mongoose.Document.
 
     Obviamente esto hace que haya un acoplamiento muy alto entre las entidades y el ORM, en este caso mongoose.
+
+- Alternativa para Mongoose + TS (Typegoose) https://codingsans.com/blog/mongoose-models-using-typescript-classes

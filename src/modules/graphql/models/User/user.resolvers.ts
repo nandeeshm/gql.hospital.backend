@@ -1,11 +1,8 @@
-import logger        from '@logger';
-
-import * as services from '@services/user.services';
-
 import { ApiError }  from '@entities/ApiError';
 import { User }      from '@entities/User';
 
-// @Resolver(of => User)
+import * as ports    from '@ports';
+
 // ###############################################################
 // ##########                  QUERIES                  ##########
 // ###############################################################
@@ -13,8 +10,7 @@ import { User }      from '@entities/User';
 export default {
     Query: {
         getUser: async (parentValue: any, args: any, context: any): Promise<User | ApiError> => {
-            logger.trace(`Getting user with id: ${args.id} ...`);
-            return await services.getUser(args.id);
+            return await ports.getUser(args.id);
         }
     },
     Unions: {

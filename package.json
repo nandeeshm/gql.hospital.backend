@@ -22,6 +22,7 @@
   "homepage": "https://github.com/ddialar/grpahql.fullstack.backend#readme",
   "main": "src/server.ts",
   "scripts": {
+    "start": "node dist/bundle.js",
     "build:dev": "webpack --config ./webpack/webpack.dev.js --info-verbosity none",
     "build:prod": "webpack --config ./webpack/webpack.prod.js",
     "database:build": "npm run database:build_volume; npm run database:build_container",

@@ -3,12 +3,6 @@ import { mongodb }  from '../index';
 const fieldIdConverter = {
     userId: (userId: string) => _convert('userId', userId),
     // usersIds: (usersIds) => _convertMultiple('usersIds', usersIds),
-    // hotelId: (hotelId) => _convert('hotelId', hotelId),
-    // hotelsIds: (hotelsIds) => _convertMultiple('hotelsIds', hotelsIds),
-    // hotelsChainId: (hotelsChainId) => _convert('hotelsChainId', hotelsChainId),
-    // hotelsChainIds: (hotelsChainIds) => _convertMultiple('hotelsChainIds', hotelsChainIds),
-    // hotelsGroupId: (hotelsGroupId) => _convert('hotelsGroupId', hotelsGroupId),
-    // loggedInDeviceIds: (loggedInDeviceIds) => _convertMultiple('loggedInDeviceIds', loggedInDeviceIds),
 };
 
 const _convert = (fieldName: string, valueToBeConverted: string) => {
@@ -17,7 +11,7 @@ const _convert = (fieldName: string, valueToBeConverted: string) => {
 
         return mongodb.Types.ObjectId(valueToBeConverted);
     } catch (error) {
-        throw new Error(`(fieldIdConverter) - The field '${fieldName}' (${valueToBeConverted}) is wrong: ${(error.description) ? error.description : error.message}`);
+        throw new Error(`The field '${fieldName}' (${valueToBeConverted}) is wrong: ${(error.description) ? error.description : error.message}`);
     }
 };
 // const _convertMultiple = (fieldName, setToBeConverted) => {
@@ -30,20 +24,17 @@ const _convert = (fieldName: string, valueToBeConverted: string) => {
 //     }
 // };
 
-// const parseIdFieldForSingleObject = (rawObjectData) => {
-//     if (!rawObjectData || Object.keys(rawObjectData).length === 0) {
-//         throw new ApiError.ArgumentNotValid('(parseIdFieldForSingleObject) - The provided object cannot be empty, null or undefined.');
-//     }
-//     if (!rawObjectData._id) {
-//         throw new ApiError.ArgumentNotValid('(parseIdFieldForSingleObject) - The provided object doesn\'t contain an \'_id\' field to be parsed.');
-//     }
-
-//     let parsedObject = JSON.parse(JSON.stringify(rawObjectData));
-//     parsedObject.id = parsedObject._id;
-//     delete parsedObject._id;
-
-//     return parsedObject;
-// };
+const parseIdFieldForSingleObject = (rawObjectData: any) => {
+    if (rawObjectData && Object.keys(rawObjectData).length > 0) {
+        let parsedObject = JSON.parse(JSON.stringify(rawObjectData));
+        parsedObject.id = parsedObject._id;
+        delete parsedObject._id;
+    
+        return parsedObject;
+    }
+    
+    return rawObjectData;
+};
 
 // const parseIdFieldForArrayOfObjects = (setOfRawObjects) => {
 //     try {
@@ -74,7 +65,7 @@ const test = {
 
 export {
     fieldIdConverter,
-    // parseIdFieldForSingleObject,
+    parseIdFieldForSingleObject,
     // parseIdFieldForArrayOfObjects,
     test
 };

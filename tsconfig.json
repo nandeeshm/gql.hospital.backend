@@ -47,10 +47,13 @@
     "baseUrl": ".",                         /* Base directory to resolve non-absolute module names. */
     "paths": {
       "@logger": ["src/core/common/logger"],
+      "@ports*": ["src/ports"],
+      "@adapters*": ["src/adapters"],
       "@services*": ["src/core/services*"],
       "@entities*": ["src/core/entities*"],
       "@resolvers": ["src/modules/graphql/resolvers"],
       "@apiErrors": ["src/core/entities/ApiError"],
+      "@dbRequests": ["src/modules/mongodb/requests"],
       "@mongodb": ["src/modules/mongodb"]
     },                                        /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
