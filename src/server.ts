@@ -1,7 +1,8 @@
 import logger           from '@logger';
 import * as path        from 'path';
 
-// import 'reflect-metadata';
+import { writeFile }    from 'fs';
+
 import { importSchema } from 'graphql-import';
 import { ApolloServer } from 'apollo-server';
 import resolvers        from '@resolvers';
@@ -16,6 +17,29 @@ const typeDefs = importSchema(schemaAbsolutePath);
 // const typeDefs = importSchema(path.join(__dirname, './modules/graphql/schema.graphql'));
 
 // console.log(typeDefs);
+
+if (process.env.NODE_ENV === 'development') {
+    let filePath: string = path.join(process.env.PWD!, 'src/modules/prisma/datamodel.prisma');
+    let fileContent: string = typeDefs
+        .replace(/type (Query|Mutation).{\n([^}]+)\n}/, '')
+        .replace(/scalar \S*\n/, '')
+        .replace(/.*union .*\n?/, '');
+
+    console.log(fileContent);
+    
+
+    writeFile(
+        filePath,
+        fileContent,
+        (error) => { 
+            if (error) {
+                logger.error('Creating the datamodel.prisma file.', error.message);
+            } else {
+                logger.trace('datamodel.prisma file created successfully.');
+            }
+        }
+    );
+}
 
 const server = new ApolloServer({
     typeDefs,
