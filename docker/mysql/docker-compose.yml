@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  gql-hospital-mysql:
+    image: mysql:5.7.26
+    container_name: gql-hospital-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=gql_hospital
+    ports: 
+      - "3306:3306"
+    volumes: 
+      # - ./data/db:/data/db
+      # - gql-hospital-database:/data/db
+      - ./configure-database/initializeDatabase.sql:/docker-entrypoint-initdb.d/initializeDatabase.sql
+      - type: volume
+        source: gql-hospital-database
+        target: /var/lib/mysql
+        consistency: consistent
+
+volumes:
+  gql-hospital-database:
+    driver: local
+    external: true
