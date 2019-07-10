@@ -3,10 +3,6 @@ import { User }      from '@entities/User';
 
 import * as ports    from '@ports';
 
-// ###############################################################
-// ##########                  QUERIES                  ##########
-// ###############################################################
-
 export default {
     Query: {
         getUser: async (parentValue: any, args: any, context: any): Promise<User | ApiError> => {
@@ -31,6 +27,3 @@ export default {
                 //     logger.trace(`Getting the whole users list ...`);
                 //     return await services.getUsers();
                 // }
-// ###############################################################
-// ##########                 MUTATIONS                 ##########
-// ###############################################################
