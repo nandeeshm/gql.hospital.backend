@@ -9,11 +9,10 @@ const getUser = async (userId: string): Promise<User | ApiError> => {
     return adapters.getUser(userId);
 };
 
-// const getUsers = async (): Promise<User[] | undefined> => {
-//     return mockedUsers;
-// };
+// ###############################################################
+// ##########           UPDATING OPERATIONS             ##########
+// ###############################################################
 
 export {
     getUser,
-    // getUsers
 }
