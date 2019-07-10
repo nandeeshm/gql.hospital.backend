@@ -8,6 +8,13 @@ class AuthenticationError extends ApiError {
     }
 };
 
+class LogoutError extends ApiError {
+    constructor(description?: string) {
+        super(errorCode, 'Logout Error', description);
+    }
+};
+
 export {
-    AuthenticationError
+    AuthenticationError,
+    LogoutError
 };

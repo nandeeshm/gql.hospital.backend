@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  mongo-test:
+  gql-hospital:
     image: mongo:latest
     container_name: gql-hospital-mongodb
     environment:

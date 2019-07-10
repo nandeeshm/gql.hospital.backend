@@ -1,0 +1,12 @@
+# import ApiError from '../ApiError/ApiError.graphql'
+
+type SimpleResponse {
+    result: String
+}
+
+union SimpleResponseUnion = SimpleResponse | ApiError
+
+type Query {
+    simpleResponseNonImplementedQuery: Boolean
+}
+

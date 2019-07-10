@@ -7,22 +7,55 @@ import {
 } from '@entities/ApiError';
 import { User } from '@entities/User';
 
-import { getUserById } from '@dbRequests';
+import * as dbRequests from '@dbRequests';
+
+// ###############################################################
+// ##########            READING OPERATIONS             ##########
+// ###############################################################
 
 const getUser = async (userId: string): Promise<User | ApiError> => {
     try {
-        let obtainedUser = await getUserById(userId);
+        let obtainedUser = await dbRequests.getUserById(userId);
         return (obtainedUser) ? plainToClass(User, obtainedUser) : new UserDoesNotExistError();
     } catch (error) {
         return new UserBadRequestError(error.message);
     }
 };
 
-// const getUsers = async (): Promise<User[] | undefined> => {
-//     return mockedUsers;
-// };
+const getUserByUsername = async (username: string): Promise<User | ApiError> => {
+    try {
+        let obtainedUser = await dbRequests.getUserByUsername(username);
+        return (obtainedUser) ? plainToClass(User, obtainedUser) : new UserDoesNotExistError();
+    } catch (error) {
+        return new UserBadRequestError(error.message);
+    }
+};
+
+const getUserByToken = async (userToken: string): Promise<User | ApiError> => {
+    try {
+        let obtainedUser = await dbRequests.getUserByToken(userToken);
+        return (obtainedUser) ? plainToClass(User, obtainedUser) : new UserDoesNotExistError();
+    } catch (error) {
+        return new UserBadRequestError(error.message);
+    }
+};
+
+// ###############################################################
+// ##########           UPDATING OPERATIONS             ##########
+// ###############################################################
+
+const updateUserToken = async (userId: string, newToken: string): Promise<User | ApiError> => {
+    try {
+        let obtainedUser = await dbRequests.updateUserToken(userId, newToken);
+        return (obtainedUser) ? plainToClass(User, obtainedUser) : new UserDoesNotExistError();
+    } catch (error) {
+        return new UserBadRequestError(error.message);
+    }
+};
 
 export {
     getUser,
-    // getUsers
+    getUserByUsername,
+    getUserByToken,
+    updateUserToken
 }

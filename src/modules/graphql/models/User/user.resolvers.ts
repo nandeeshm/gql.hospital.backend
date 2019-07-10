@@ -3,16 +3,13 @@ import { User }      from '@entities/User';
 
 import * as ports    from '@ports';
 
-// ###############################################################
-// ##########                  QUERIES                  ##########
-// ###############################################################
-
 export default {
     Query: {
         getUser: async (parentValue: any, args: any, context: any): Promise<User | ApiError> => {
             return await ports.getUser(args.id);
         }
     },
+    Mutation: {},
     Unions: {
         UserUnion: {
             __resolveType(parentValues: User | ApiError) {
@@ -27,10 +24,3 @@ export default {
         }
     }
 };
-                // async getUsers(): Promise<User[] | undefined> {
-                //     logger.trace(`Getting the whole users list ...`);
-                //     return await services.getUsers();
-                // }
-// ###############################################################
-// ##########                 MUTATIONS                 ##########
-// ###############################################################

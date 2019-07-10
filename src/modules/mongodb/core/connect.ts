@@ -22,7 +22,8 @@ const connect = async () => {
     let options = {
         useNewUrlParser: MONGO_OPTIONS_USE_NEW_URL_PARSER,
         reconnectTries: MONGO_OPTIONS_RECONNECT_TRIES,
-        reconnectInterval: MONGO_OPTIONS_RECONNECT_INTERVAL
+        reconnectInterval: MONGO_OPTIONS_RECONNECT_INTERVAL,
+        useFindAndModify: false
     }
 
     try {

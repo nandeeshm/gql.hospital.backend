@@ -1,4 +1,5 @@
-# import ApiError from '../ApiError/ApiErrorType.graphql
+# import ApiError from '../ApiError/ApiError.graphql'
+# import SimpleResponseUnion from '../SimpleResponse/SimpleResponse.graphql'
 
 input LoginInputType {
     username: String!
@@ -6,15 +7,20 @@ input LoginInputType {
 }
 
 type AuthenticatedUser {
-    name: String!
-    surname: String!
-    username: String!
-    role: Int!
-    token: String!
+    name: String
+    surname: String
+    username: String
+    role: Int
+    token: String
 }
 
 union AuthenticatedUserUnion = AuthenticatedUser | ApiError
 
+type Query {
+    authenticationNonImplementedQuery: Boolean
+}
+
 type Mutation {
     login(data: LoginInputType!): AuthenticatedUserUnion!
+    logout: SimpleResponseUnion!
 }

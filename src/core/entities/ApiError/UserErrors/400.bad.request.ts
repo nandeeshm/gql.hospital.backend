@@ -8,6 +8,13 @@ class UserBadRequestError extends ApiError {
     }
 };
 
+class UserWrongPasswordError extends ApiError {
+    constructor(description?: string) {
+        super(errorCode, 'User wrong password.', description);
+    }
+};
+
 export {
-    UserBadRequestError
+    UserBadRequestError,
+    UserWrongPasswordError
 };
