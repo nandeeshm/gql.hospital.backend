@@ -1,5 +1,3 @@
-import { plainToClass } from 'class-transformer';
-
 import { ApiError } from '@entities/ApiError';
 import { User } from '@entities/User';
 
