@@ -1,5 +1,7 @@
 load('/docker-entrypoint-initdb.d/usersDataToBePersisted.js');
 load('/docker-entrypoint-initdb.d/rolesDataToBePersisted.js');
+load('/docker-entrypoint-initdb.d/genresDataToBePersisted.js');
+load('/docker-entrypoint-initdb.d/medicalReportTypesToBePersisted.js');
 
 var apiDatabases = [
     {
@@ -19,6 +21,14 @@ var apiDatabases = [
             {
                 collection: 'roles',
                 data: rolesDataToBePersisted
+            },
+            {
+                collection: 'genres',
+                data: genresDataToBePersisted
+            },
+            {
+                collection: 'medicalReports',
+                data: medicalReportTypesToBePersisted
             }
         ]
     },
@@ -37,7 +47,9 @@ var apiDatabases = [
 
 var collections = {
     'users': (db, userData) => db.users.insert(userData),
-    'roles': (db, roleData) => db.roles.insert(roleData)
+    'roles': (db, roleData) => db.roles.insert(roleData),
+    'geres': (db, genreData) => db.genres.insert(genreData),
+    'medicalReports': (db, reportData) => db.medicalReports.insert(reportData),
 };
 
 try {
