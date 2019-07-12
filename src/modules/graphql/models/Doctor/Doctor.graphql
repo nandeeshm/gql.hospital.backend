@@ -1,0 +1,28 @@
+# import UserInterface from '../../interfaces/UserInterface.graphql'
+# import ApiError from '../ApiError/ApiError.graphql'
+# import DateTime from '../../scalars//DateTime/DateTime.graphql'
+
+type Doctor implements UserInterface {
+    id: ID
+    socialCareNumber: String
+    idCard: String
+    name: String
+    surname: String
+    username: String
+    role: Int
+    token: String
+    lastLoginAt: DateTime
+    createdAt: DateTime
+    updatedAt: DateTime
+    enabled: Boolean
+    membershipNumber: String
+    # TODO replace this field type with the MedicalSpeciality object type, once it's created.
+    speciality: ID
+    boundPatients: [ID]
+}
+
+union DoctorUnion = Doctor | ApiError
+
+type Query {
+    getDoctorById(id: String!): DoctorUnion!
+}

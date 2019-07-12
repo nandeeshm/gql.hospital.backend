@@ -1,2 +1,3 @@
 # import Mutation.*, * from './models/Athentication/Authentication.graphql'
 # import Query.*, * from './models/User/User.graphql'
+# import Query.*, * from './models/Doctor/Doctor.graphql'
