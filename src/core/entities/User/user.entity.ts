@@ -1,5 +1,7 @@
 class User {
     id: string;
+    socialCareNumber: string;
+    idCard: string;
     name: string;
     surname: string;
     username: string;

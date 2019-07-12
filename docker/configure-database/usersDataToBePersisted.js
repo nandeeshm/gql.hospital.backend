@@ -1,6 +1,7 @@
 const usersDataToBePersisted = [
     {
         'socialCareNumber': '381234567891',
+        'idCard': '123456789A',
         'name': 'Dailos',
         'surname': 'Díaz',
         'username': 'ddialar',

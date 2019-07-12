@@ -3,6 +3,8 @@
 
 type User {
     id: ID
+    socialCareNumber: String
+    idCard: String
     name: String
     surname: String
     username: String
