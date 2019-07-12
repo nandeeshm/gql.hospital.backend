@@ -26,6 +26,7 @@ module.exports = {
             '@ports': path.resolve(__dirname, '../src/ports'),
             '@adapters': path.resolve(__dirname, '../src/adapters'),
             '@services': path.resolve(__dirname, '../src/core/services/'),
+            '@interfaces': path.resolve(__dirname, '../src/core/interfaces/'),
             '@apiErrors': path.resolve(__dirname, '../src/core/models/ApiError'),
             '@entities': path.resolve(__dirname, '../src/core/entities/'),
             '@resolvers': path.resolve(__dirname, '../src/modules/graphql/resolvers'),

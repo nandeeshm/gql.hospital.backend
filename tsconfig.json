@@ -51,6 +51,7 @@
       "@adapters*": ["src/adapters"],
       "@services*": ["src/core/services*"],
       "@entities*": ["src/core/entities*"],
+      "@interfaces": ["src/core/interfaces"],
       "@resolvers": ["src/modules/graphql/resolvers"],
       "@apiErrors": ["src/core/entities/ApiError"],
       "@dbRequests": ["src/modules/mongodb/requests"],
