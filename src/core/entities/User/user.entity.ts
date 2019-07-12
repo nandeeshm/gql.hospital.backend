@@ -1,4 +1,6 @@
-class User {
+import { UserInterface } from '@interfaces';
+
+class User implements UserInterface {
     id: string;
     socialCareNumber: string;
     idCard: string;

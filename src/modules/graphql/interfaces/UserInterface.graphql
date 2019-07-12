@@ -1,0 +1,14 @@
+interface UserInterface {
+    id: ID
+    socialCareNumber: String
+    idCard: String
+    name: String
+    surname: String
+    username: String
+    role: Int
+    token: String
+    lastLoginAt: DateTime
+    createdAt: DateTime
+    updatedAt: DateTime
+    enabled: Boolean
+}

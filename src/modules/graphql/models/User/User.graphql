@@ -1,7 +1,8 @@
+# import UserInterface from '../../interfaces/UserInterface.graphql'
 # import ApiError from '../ApiError/ApiError.graphql'
 # import DateTime from '../../scalars//DateTime/DateTime.graphql'
 
-type User {
+type User implements UserInterface {
     id: ID
     socialCareNumber: String
     idCard: String
@@ -16,14 +17,8 @@ type User {
     enabled: Boolean
 }
 
-input UserTestInput {
-    field: String
-}
-
 union UserUnion = User | ApiError
 
 type Query {
-    getUser(
-        id: String!): UserUnion!
-    # getUsers: [UserUnion]!
+    getUser(id: String!): UserUnion!
 }

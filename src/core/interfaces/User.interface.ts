@@ -1,0 +1,17 @@
+class UserInterface {
+    id: string;
+    socialCareNumber: string;
+    idCard: string;
+    name: string;
+    surname: string;
+    username: string;
+    password: string;
+    role: number;
+    token: string;
+    lastLoginAt: Date;
+    createdAt: Date;
+    updatedAt: Date;
+    enabled: boolean = true;
+}
+
+export default UserInterface;
