@@ -35,7 +35,7 @@ const login = async (loginData: LoginInputType): Promise<AuthenticatedUser | Api
         encodedToken = encodeToken(persistedUser.username, persistedUser.role);
 
         logger.trace('(login) - Updating user\'s token.');
-        persistedUser = await adapters.updateUserToken(persistedUser.id, encodedToken);
+        persistedUser = await adapters.updateUserLoginData(persistedUser.id, encodedToken);
         
         if (persistedUser instanceof ApiError) {
             logger.error('(login) - Error updating user\'s token.', persistedUser.message);

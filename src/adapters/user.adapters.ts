@@ -53,9 +53,19 @@ const updateUserToken = async (userId: string, newToken: string): Promise<User |
     }
 };
 
+const updateUserLoginData = async (userId: string, newToken: string): Promise<User | ApiError> => {
+    try {
+        let obtainedUser = await dbRequests.updateUserLoginData(userId, newToken);
+        return (obtainedUser) ? plainToClass(User, obtainedUser) : new UserDoesNotExistError();
+    } catch (error) {
+        return new UserBadRequestError(error.message);
+    }
+};
+
 export {
     getUser,
     getUserByUsername,
     getUserByToken,
-    updateUserToken
+    updateUserToken,
+    updateUserLoginData
 }

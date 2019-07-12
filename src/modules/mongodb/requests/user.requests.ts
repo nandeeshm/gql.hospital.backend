@@ -61,7 +61,25 @@ const updateUserToken = async (userId: string, newToken: string) => {
             .UserModel
             .findByIdAndUpdate(
                 fieldIdConverter['userId'](userId), 
-                { token: newToken}, 
+                { token: newToken }, 
+                { new: true })
+            .lean()
+            .exec();
+        return parseIdFieldForSingleObject(result);
+    } catch (error) {
+        logger.error(`(updateUserToken) - ${error.message} ${error.description}`);
+        throw new Error((error.description) ? error.description : error.message);
+    }
+};
+
+const updateUserLoginData = async (userId: string, newToken: string) => {
+    try {
+        // validate.users.userId(userId, 'The user\'s ID must be defined in order to get the user data.');
+        let result = await models
+            .UserModel
+            .findByIdAndUpdate(
+                fieldIdConverter['userId'](userId), 
+                { token: newToken, lastLoginAt: new Date() }, 
                 { new: true })
             .lean()
             .exec();
@@ -76,5 +94,6 @@ export {
     getUserById,
     getUserByUsername,
     getUserByToken,
-    updateUserToken
+    updateUserToken,
+    updateUserLoginData
 };
