@@ -18,8 +18,9 @@ var PatientSchema = new Schema({
     updatedAt: { type: Number, required: true },
     enabled: { type: Boolean, required: true },
     birthDate: { type: Number, required: true },
-    genre: { type: Schema.Types.ObjectId },
-    historyId: { type: Schema.Types.ObjectId, required: true }
+    genre: { type: String, required: true },
+    // TODO set the historyId field as required, once the creating histories process is implemented.
+    historyId: { type: Schema.Types.ObjectId }
 });
 
 const PatientModel = mongoose.model<Patient & mongoose.Document>('Patient', PatientSchema);

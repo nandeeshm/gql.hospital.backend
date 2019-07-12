@@ -7,8 +7,8 @@ class Patient implements UserInterface {
     name: string;
     surname: string;
     username: string;
-    private _password: string;
-    role: number;
+    password: string;
+    role: number = 9;
     token: string;
     lastLoginAt: Date;
     createdAt: Date;
@@ -18,14 +18,6 @@ class Patient implements UserInterface {
     birthDate: Date;
     genre: string;
     historyId: string;
-
-    get password(): string {
-        return this._password;
-    }
-
-    set password(password: string) {
-        this._password = password;
-    }
 }
 
 export default Patient;

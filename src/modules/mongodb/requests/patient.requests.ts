@@ -1,3 +1,4 @@
+import { Patient } from '@entities/Patient';
 import logger from "@logger";
 
 import { 
@@ -5,6 +6,24 @@ import {
     parseIdFieldForSingleObject 
 } from '../common/fieldIdConverter';
 import { models } from '@mongodb';
+
+// ###############################################################
+// ##########           CREATING OPERATIONS             ##########
+// ###############################################################
+
+const createNewPatient = async (newPatientData: Patient) => {
+    logger.trace('(ddbb) - Persisting a new patient ...');
+    try {
+        let persistedPatient = await models
+            .PatientModel
+            .create(newPatientData);
+        logger.info('(ddbb) - New patient successfully persisted with ID:', persistedPatient._id);
+        return parseIdFieldForSingleObject(persistedPatient);
+    } catch (error) {
+        logger.error(`(ddbb - createNewPatient) - ${error.message} ${error.description}`);
+        throw new Error((error.description) ? error.description : error.message);
+    }
+};
 
 // ###############################################################
 // ##########            READING OPERATIONS             ##########
@@ -29,5 +48,6 @@ const getPatientById = async (patientId: string) => {
 // ###############################################################
 
 export {
+    createNewPatient,
     getPatientById
 };

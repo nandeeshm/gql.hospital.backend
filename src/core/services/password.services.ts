@@ -1,7 +1,8 @@
 import * as bcrypt from 'bcryptjs';
 
 const encodePassword = async (plainPassword: string): Promise<string> => {
-    return await bcrypt.hash(plainPassword, process.env.BCRYPT_SALT_ROUNDS || 1);
+    let salt = await bcrypt.genSalt(Number.parseInt(process.env.BCRYPT_SALT_ROUNDS || '1'));
+    return await bcrypt.hash(plainPassword, salt);
 };
 
 const comparePassword = async (plainPassword: string, hash: string): Promise<boolean> => {

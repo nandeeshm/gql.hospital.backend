@@ -2,6 +2,17 @@
 # import ApiError from '../ApiError/ApiError.graphql'
 # import DateTime from '../../scalars//DateTime/DateTime.graphql'
 
+input PatientInput {
+    socialCareNumber: String
+    idCard: String
+    name: String!
+    surname: String!
+    username: String
+    birthDate: DateTime
+    # TODO implement the specific resolver in order to get the genre in text format.
+    genre: String!
+}
+
 type Patient implements UserInterface {
     id: ID
     socialCareNumber: String
@@ -26,4 +37,8 @@ union PatientUnion = Patient | ApiError
 
 type Query {
     getPatientById(id: String!): PatientUnion!
+}
+
+type Mutation {
+    createNewPatient(data: PatientInput!): PatientUnion!
 }
