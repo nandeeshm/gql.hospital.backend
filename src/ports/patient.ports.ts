@@ -1,5 +1,5 @@
 import { ApiError } from '@entities/ApiError';
-import { Doctor }   from '@entities/Doctor';
+import { Patient }  from '@entities/Patient';
 
 import * as adapters from '@adapters';
 
@@ -7,8 +7,8 @@ import * as adapters from '@adapters';
 // ##########           GETTING OPERATIONS              ##########
 // ###############################################################
 
-const getDoctorById = async (doctorId: string): Promise<Doctor | ApiError> => {
-    return await adapters.getDoctorById(doctorId);
+const getPatientById = async (patientId: string): Promise<Patient | ApiError> => {
+    return await adapters.getPatientById(patientId);
 };
 
 // ###############################################################
@@ -16,5 +16,5 @@ const getDoctorById = async (doctorId: string): Promise<Doctor | ApiError> => {
 // ###############################################################
 
 export {
-    getDoctorById,
+    getPatientById,
 }
