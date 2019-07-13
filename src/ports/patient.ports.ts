@@ -2,7 +2,9 @@ import logger                   from '@logger';
 import { 
     ApiError, 
     CreatingPatientError, 
-    PatientAlreadyExistsError
+    PatientAlreadyExistsError,
+    PatientDoesNotExistError,
+    GettingPatientError
 } from '@entities/ApiError';
 import { Patient }              from '@entities/Patient';
 
@@ -31,6 +33,7 @@ const createNewPatient = async (patientData: Patient): Promise<Patient | ApiErro
         let persistedPatient = await adapters.getPatient('_id', persistedUser!.id);
 
         if (persistedPatient === null) {
+            // TODO Create a new history and assign its id to this patient.
             initializedPatient.id = persistedUser!.id;
             logger.trace('(ports) - Creating a new patient ...');
             persistedPatient = await adapters.createNewPatient(initializedPatient);
@@ -51,7 +54,27 @@ const createNewPatient = async (patientData: Patient): Promise<Patient | ApiErro
 // ###############################################################
 
 const getPatientById = async (patientId: string): Promise<Patient | ApiError> => {
-    return await adapters.getPatientById(patientId);
+    logger.trace('(ports) - Retreaving a patient by ID:', patientId);
+    try {
+        let persistedUser = await adapters.getUser('_id', patientId);
+        
+        if (persistedUser === null) {
+            logger.trace('(ports) - The patient\'s user doesn\'t exist.');
+            return new PatientDoesNotExistError('The patient\'s user doesn\'t exist.');
+        }
+
+        let persistedPatient = await adapters.getPatient('_id', patientId);
+
+        if (persistedPatient === null) {
+            logger.trace('(ports) - The patient doesn\'t exist.');
+            return new PatientDoesNotExistError();
+        }
+        
+        return Object.assign(persistedPatient!, persistedUser!);
+    } catch (error) {
+        logger.error(`(createNewPatient - port) - ${error.message} ${error.description}`);
+        return new GettingPatientError(error.message);
+    }
 };
 
 // ###############################################################

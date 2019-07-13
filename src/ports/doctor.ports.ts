@@ -56,7 +56,6 @@ const createNewDoctor = async (doctorData: Doctor): Promise<Doctor | ApiError> =
 // ###############################################################
 
 const getDoctorById = async (doctorId: string): Promise<Doctor | ApiError> => {
-    // return await adapters.getDoctorById(doctorId);
     logger.trace('(ports) - Retreaving a Doctor by ID:', doctorId);
     try {
         let persistedUser = await adapters.getUser('_id', doctorId);
