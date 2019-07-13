@@ -9,6 +9,7 @@ import {
 import { Doctor } from '@entities/Doctor';
 
 import * as dbRequests from '@dbRequests';
+import { parseDoctorFromDatabase } from '@services/doctor.services';
 
 // ###############################################################
 // ##########           CREATING OPERATIONS             ##########
@@ -17,7 +18,7 @@ import * as dbRequests from '@dbRequests';
 const createNewDoctor = async (DoctorData: Doctor): Promise<Doctor | ApiError> => {
     try {
         let createdDoctor = await dbRequests.createNewDoctor(DoctorData);
-        return (createdDoctor) ? plainToClass(Doctor, createdDoctor) : new DoctorDoesNotExistError();
+        return (createdDoctor) ? plainToClass(Doctor, parseDoctorFromDatabase(createdDoctor)) : new DoctorDoesNotExistError();
     } catch (error) {
         logger.error(`(createNewDoctor - adapter) - ${error.message} ${error.description}`);
         return new DoctorBadRequestError(error.message);
@@ -31,7 +32,7 @@ const createNewDoctor = async (DoctorData: Doctor): Promise<Doctor | ApiError> =
 const getDoctorById = async (doctorId: string): Promise<Doctor | ApiError> => {
     try {
         let obtainedDoctor = await dbRequests.getDoctorById(doctorId);
-        return (obtainedDoctor) ? plainToClass(Doctor, obtainedDoctor) : new DoctorDoesNotExistError();
+        return (obtainedDoctor) ? plainToClass(Doctor, parseDoctorFromDatabase(obtainedDoctor)) : new DoctorDoesNotExistError();
     } catch (error) {
         return new DoctorBadRequestError(error.message);
     }
