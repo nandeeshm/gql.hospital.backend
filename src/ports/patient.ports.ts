@@ -1,7 +1,8 @@
 import logger                   from '@logger';
 import { 
     ApiError, 
-    CreatingPatientError 
+    CreatingPatientError, 
+    PatientAlreadyExistsError
 } from '@entities/ApiError';
 import { Patient }              from '@entities/Patient';
 
@@ -15,10 +16,30 @@ import { initializeNewPatient } from '@services/patient.services';
 const createNewPatient = async (patientData: Patient): Promise<Patient | ApiError> => {
     logger.trace('(ports) - Creating a new patient ...');
     try {
-        // TODO Check if already exists a patiend with the same social care number and id card.
         let initializedPatient = await initializeNewPatient(patientData);
         logger.trace('(ports) - New patient initialized successfully.');
-        return await adapters.createNewPatient(initializedPatient);
+
+        let persistedUser = await adapters.getUser('socialCareNumber', initializedPatient.socialCareNumber);
+        
+        if (persistedUser === null) {
+            logger.trace('(ports) - Creating a new patient\'s user ...');
+            persistedUser = await adapters.createNewUser(initializedPatient);
+        } else {
+            logger.trace('(ports) - Patient\'s user already exists.');
+        }
+
+        let persistedPatient = await adapters.getPatient('_id', persistedUser!.id);
+
+        if (persistedPatient === null) {
+            initializedPatient.id = persistedUser!.id;
+            logger.trace('(ports) - Creating a new patient ...');
+            persistedPatient = await adapters.createNewPatient(initializedPatient);
+        } else {
+            logger.trace('(ports) - Patient already exists.');
+            return new PatientAlreadyExistsError();
+        }
+        
+        return Object.assign(persistedPatient!, persistedUser!);
     } catch (error) {
         logger.error(`(createNewPatient - port) - ${error.message} ${error.description}`);
         return new CreatingPatientError(error.message);

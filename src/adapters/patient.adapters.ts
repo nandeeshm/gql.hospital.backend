@@ -9,25 +9,38 @@ import {
 import { Patient } from '@entities/Patient';
 
 import * as dbRequests from '@dbRequests';
-import { parsePatientFromDatabase } from '@services/patient.services';
+import { parsePatientFromDatabase, parsePatientToDatabase } from '@services/patient.services';
 
 // ###############################################################
 // ##########           CREATING OPERATIONS             ##########
 // ###############################################################
 
-const createNewPatient = async (patientData: Patient): Promise<Patient | ApiError> => {
+const createNewPatient = async (patientData: Patient): Promise<Patient | null> => {
     try {
-        let createdPatient = await dbRequests.createNewPatient(patientData);
-        return (createdPatient) ? plainToClass(Patient, parsePatientFromDatabase(createdPatient)) : new PatientDoesNotExistError();
+        let createdPatient = await dbRequests.createNewPatient(parsePatientToDatabase(patientData));
+        return (createdPatient) ? 
+            plainToClass(Patient, parsePatientFromDatabase(createdPatient)) : 
+            null;
     } catch (error) {
         logger.error(`(createNewPatient - adapter) - ${error.message} ${error.description}`);
-        return new PatientBadRequestError(error.message);
+        throw error;
     }
 };
 
 // ###############################################################
 // ##########            READING OPERATIONS             ##########
 // ###############################################################
+
+const getPatient = async (searchingParam: string, paramValue: string): Promise<Patient | null> => {
+    try {
+        let obtainedPatient = await dbRequests.getPatient(searchingParam, paramValue);
+        return (obtainedPatient) ? 
+            plainToClass(Patient, parsePatientFromDatabase(obtainedPatient)) : 
+            null;
+    } catch (error) {
+        throw error;
+    }
+};
 
 const getPatientById = async (patientId: string): Promise<Patient | ApiError> => {
     try {
@@ -44,5 +57,6 @@ const getPatientById = async (patientId: string): Promise<Patient | ApiError> =>
 
 export {
     createNewPatient,
+    getPatient,
     getPatientById
 }

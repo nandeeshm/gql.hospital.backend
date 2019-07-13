@@ -1,7 +1,7 @@
 import logger from '@logger';
+
 import { Patient } from '@entities/Patient';
 import { encodePassword } from './password.services';
-import { checkIfUserExists } from './user.services';
 
 // ###############################################################
 // ##########           GENERAL OPERATIONS              ##########
@@ -9,15 +9,17 @@ import { checkIfUserExists } from './user.services';
 
 const initializeNewPatient = async (newPatientData: Patient) => {
     try {
-        if (!(await checkIfUserExists('socialCareNumber', newPatientData.socialCareNumber))) {
-            throw new Error('Already exists a Doctor with the same social care number.');
-        }
-        
         let initializedPatient: Patient = Object.assign(new Patient(), newPatientData);
         
         delete initializedPatient.id;
+
+        // TODO validate that the username is a valid data, it means, this data is not a char, blank space, etc.
+        if (!initializedPatient.username) {
+            initializedPatient.username = initializedPatient.socialCareNumber;
+        }
         
         initializedPatient.password = await encodePassword(initializedPatient.name.split(' ', 1)[0].toLowerCase());
+        initializedPatient.role = 0;
         initializedPatient.createdAt = new Date();
         initializedPatient.updatedAt = new Date();
 
@@ -47,7 +49,20 @@ const parsePatientFromDatabase = (rawObjectData: any) => {
     return rawObjectData;
 };
 
+const parsePatientToDatabase = (rawObjectData: any) => {
+    if (rawObjectData && Object.keys(rawObjectData).length > 0) {
+        let parsedObject = JSON.parse(JSON.stringify(rawObjectData));
+        parsedObject._id = parsedObject.id;
+        delete parsedObject.id;
+    
+        return parsedObject;
+    }
+    
+    return rawObjectData;
+};
+
 export {
     initializeNewPatient,
-    parsePatientFromDatabase
+    parsePatientFromDatabase,
+    parsePatientToDatabase
 };

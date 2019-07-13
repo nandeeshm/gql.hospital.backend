@@ -9,7 +9,6 @@ input PatientInput {
     surname: String!
     username: String
     birthDate: DateTime
-    # TODO implement the specific resolver in order to get the genre in text format.
     genre: String!
 }
 

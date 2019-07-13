@@ -28,6 +28,18 @@ const createNewPatient = async (newPatientData: Patient) => {
 // ##########            READING OPERATIONS             ##########
 // ###############################################################
 
+const getPatient = async (searchingParam: string, paramValue: string) => {
+    logger.trace(`(ddbb) Getting patient by '${searchingParam}': ${paramValue}`);
+    try {
+        let criteria = JSON.parse(`{ "${searchingParam}": "${paramValue}" }`);
+        let projection = { 'locale': 0 };
+        return await models.PatientModel.findOne(criteria, projection).lean().exec();
+    } catch (error) {
+        logger.error(`(getPatientById) - ${error.message} ${error.description}`);
+        throw new Error((error.description) ? error.description : error.message);
+    }
+};
+
 const getPatientById = async (patientId: string) => {
     logger.trace('Getting patient by ID:', patientId);
     try {
@@ -36,7 +48,7 @@ const getPatientById = async (patientId: string) => {
         let projection = { 'locale': 0 };
         return await models.PatientModel.findOne(criteria, projection).lean().exec();
     } catch (error) {
-        logger.error(`(getDoctorById) - ${error.message} ${error.description}`);
+        logger.error(`(getPatientById) - ${error.message} ${error.description}`);
         throw new Error((error.description) ? error.description : error.message);
     }
 };
@@ -47,5 +59,6 @@ const getPatientById = async (patientId: string) => {
 
 export {
     createNewPatient,
+    getPatient,
     getPatientById
 };
