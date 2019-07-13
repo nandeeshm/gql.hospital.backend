@@ -8,6 +8,13 @@ class CreatingDoctorError extends ApiError {
     }
 };
 
+class GettingDoctorError extends ApiError {
+    constructor(description?: string) {
+        super(errorCode, 'Getting doctor Error', description);
+    }
+};
+
 export {
-    CreatingDoctorError
+    CreatingDoctorError,
+    GettingDoctorError
 };

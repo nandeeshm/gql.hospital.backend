@@ -28,8 +28,20 @@ const createNewDoctor = async (newDoctorData: Doctor) => {
 // ##########            READING OPERATIONS             ##########
 // ###############################################################
 
+const getDoctor = async (searchingParam: string, paramValue: string) => {
+    logger.trace(`(ddbb) Getting Doctor by '${searchingParam}': ${paramValue}`);
+    try {
+        let criteria = JSON.parse(`{ "${searchingParam}": "${paramValue}" }`);
+        let projection = { 'locale': 0 };
+        return await models.DoctorModel.findOne(criteria, projection).lean().exec();
+    } catch (error) {
+        logger.error(`(getDoctorById) - ${error.message} ${error.description}`);
+        throw new Error((error.description) ? error.description : error.message);
+    }
+};
+
 const getDoctorById = async (doctorId: string) => {
-    logger.trace('Getting doctor by ID:', doctorId);
+    logger.trace('(ddbb) Getting doctor by ID:', doctorId);
     try {
         let criteria = { _id: fieldIdConverter['userId'](doctorId) };
         let projection = { 'locale': 0 };
@@ -46,5 +58,6 @@ const getDoctorById = async (doctorId: string) => {
 
 export {
     createNewDoctor,
+    getDoctor,
     getDoctorById
 };

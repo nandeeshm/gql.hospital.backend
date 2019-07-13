@@ -9,6 +9,7 @@ input DoctorInput {
     surname: String!
     username: String
     birthDate: DateTime
+    genre: String!
     membershipNumber: String!
     # TODO replace this field type with the MedicalSpeciality object type, once it's created.
     specialities: [ID]

@@ -2,7 +2,6 @@ import logger from '@logger';
 
 import { Doctor } from '@entities/Doctor';
 import { encodePassword } from './password.services';
-import { checkIfUserExists } from './user.services';
 
 // ###############################################################
 // ##########           GENERAL OPERATIONS              ##########
@@ -10,10 +9,6 @@ import { checkIfUserExists } from './user.services';
 
 const initializeNewDoctor = async (newDoctorData: Doctor) => {
     try {
-        if (!(await checkIfUserExists('socialCareNumber', newDoctorData.socialCareNumber))) {
-            throw new Error('Already exists a Doctor with the same social care number.');
-        }
-
         let initializedDoctor: Doctor = Object.assign(new Doctor(), newDoctorData);
         
         delete initializedDoctor.id;
@@ -24,6 +19,7 @@ const initializeNewDoctor = async (newDoctorData: Doctor) => {
         }
 
         initializedDoctor.password = await encodePassword(initializedDoctor.name.split(' ', 1)[0].toLowerCase());
+        initializedDoctor.role = 20;
         initializedDoctor.createdAt = new Date();
         initializedDoctor.updatedAt = new Date();
 
@@ -53,7 +49,20 @@ const parseDoctorFromDatabase = (rawObjectData: any) => {
     return rawObjectData;
 };
 
+const parseDoctorToDatabase = (rawObjectData: any) => {
+    if (rawObjectData && Object.keys(rawObjectData).length > 0) {
+        let parsedObject = JSON.parse(JSON.stringify(rawObjectData));
+        parsedObject._id = parsedObject.id;
+        delete parsedObject.id;
+    
+        return parsedObject;
+    }
+    
+    return rawObjectData;
+};
+
 export {
     initializeNewDoctor,
-    parseDoctorFromDatabase
+    parseDoctorFromDatabase,
+    parseDoctorToDatabase
 };
