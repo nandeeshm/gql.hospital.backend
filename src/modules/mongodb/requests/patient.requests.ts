@@ -1,8 +1,7 @@
 import logger from "@logger";
 
 import { 
-    fieldIdConverter, 
-    parseIdFieldForSingleObject 
+    fieldIdConverter
 } from '../common/fieldIdConverter';
 import { models } from '@mongodb';
 import { Patient } from '@entities/Patient';
@@ -18,7 +17,7 @@ const createNewPatient = async (newPatientData: Patient) => {
             .PatientModel
             .create(newPatientData);
         logger.info('(ddbb) - New patient successfully persisted with ID:', persistedPatient._id);
-        return parseIdFieldForSingleObject(persistedPatient);
+        return persistedPatient;
     } catch (error) {
         logger.error(`(ddbb - createNewPatient) - ${error.message} ${error.description}`);
         throw new Error((error.description) ? error.description : error.message);
@@ -35,8 +34,7 @@ const getPatientById = async (patientId: string) => {
         // validate.users.patientId(patientId, 'The user\'s ID must be defined in order to get the user data.');
         let criteria = { _id: fieldIdConverter['userId'](patientId) };
         let projection = { 'locale': 0 };
-        let result = await models.PatientModel.findOne(criteria, projection).lean().exec();
-        return parseIdFieldForSingleObject(result);
+        return await models.PatientModel.findOne(criteria, projection).lean().exec();
     } catch (error) {
         logger.error(`(getDoctorById) - ${error.message} ${error.description}`);
         throw new Error((error.description) ? error.description : error.message);

@@ -9,6 +9,7 @@ import {
 import { Patient } from '@entities/Patient';
 
 import * as dbRequests from '@dbRequests';
+import { parsePatientFromDatabase } from '@services/patient.services';
 
 // ###############################################################
 // ##########           CREATING OPERATIONS             ##########
@@ -17,7 +18,7 @@ import * as dbRequests from '@dbRequests';
 const createNewPatient = async (patientData: Patient): Promise<Patient | ApiError> => {
     try {
         let createdPatient = await dbRequests.createNewPatient(patientData);
-        return (createdPatient) ? plainToClass(Patient, createdPatient) : new PatientDoesNotExistError();
+        return (createdPatient) ? plainToClass(Patient, parsePatientFromDatabase(createdPatient)) : new PatientDoesNotExistError();
     } catch (error) {
         logger.error(`(createNewPatient - adapter) - ${error.message} ${error.description}`);
         return new PatientBadRequestError(error.message);
@@ -31,7 +32,7 @@ const createNewPatient = async (patientData: Patient): Promise<Patient | ApiErro
 const getPatientById = async (patientId: string): Promise<Patient | ApiError> => {
     try {
         let obtainedPatient = await dbRequests.getPatientById(patientId);
-        return (obtainedPatient) ? plainToClass(Patient, obtainedPatient) : new PatientDoesNotExistError();
+        return (obtainedPatient) ? plainToClass(Patient, parsePatientFromDatabase(obtainedPatient)) : new PatientDoesNotExistError();
     } catch (error) {
         return new PatientBadRequestError(error.message);
     }
