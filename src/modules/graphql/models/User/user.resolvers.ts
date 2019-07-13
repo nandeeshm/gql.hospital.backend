@@ -5,9 +5,9 @@ import * as ports    from '@ports';
 
 export default {
     Query: {
-        getUser: async (parentValue: any, args: any, context: any): Promise<User | ApiError> => {
-            return await ports.getUser(args.id);
-        }
+        // getUser: async (parentValue: any, args: any, context: any): Promise<User | ApiError> => {
+        //     return await ports.getUser(args.id);
+        // }
     },
     Mutation: {},
     Unions: {

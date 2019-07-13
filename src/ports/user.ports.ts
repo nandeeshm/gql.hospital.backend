@@ -7,9 +7,9 @@ import * as adapters from '@adapters';
 // ##########           READING OPERATIONS              ##########
 // ###############################################################
 
-const getUser = async (userId: string): Promise<User | ApiError> => {
-    return await adapters.getUser(userId);
-};
+// const getUser = async (userId: string): Promise<User | ApiError> => {
+//     return await adapters.getUser('_id', userId);
+// };
 
 const checkIfUserExists = async (searchingParam: string, paramValue: string): Promise<User | null> => {
     try {
@@ -24,6 +24,6 @@ const checkIfUserExists = async (searchingParam: string, paramValue: string): Pr
 // ###############################################################
 
 export {
-    getUser,
+    // getUser,
     checkIfUserExists
 }
