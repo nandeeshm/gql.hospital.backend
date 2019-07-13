@@ -5,18 +5,7 @@ import { Doctor } from '@entities/Doctor';
 var Schema = mongoose.Schema;
 
 var DoctorSchema = new Schema({
-    socialCareNumber: { type: String },
-    idCard: { type: String },
-    name: { type: String, required: true },
-    surname: { type: String, required: true },
-    username: { type: String, required: true },
-    password: { type: String, required: true },
-    role: { type: Number, ref: 'Role', required: true },
-    token: { type: String },
-    lastLoginAt: { type: Number },
-    createdAt: { type: Number, required: true },
-    updatedAt: { type: Number, required: true },
-    enabled: { type: Boolean, required: true },
+    userId: { type: Schema.Types.ObjectId, required: true },
     membershipNumber: { type: String, required: true },
     specialities: { type: [Schema.Types.ObjectId] },
     assignedPatients: { type: [Schema.Types.ObjectId] },

@@ -1,22 +1,8 @@
-import { UserInterface } from '@interfaces';
+import { User } from '@entities/User';
 
-class Doctor implements UserInterface {
-    id: string;
-    socialCareNumber: string;
-    idCard: string;
-    name: string;
-    surname: string;
-    username: string;
-    password: string;
-    role: number = 29;
-    token: string;
-    lastLoginAt: Date;
-    createdAt: Date;
-    updatedAt: Date;
-    enabled: boolean = true;
-
+class Doctor extends User {
     memershipNumber: string;
-    speciality: string[];
+    specialities: string[];
     assignedPatients: string[];
 }
 

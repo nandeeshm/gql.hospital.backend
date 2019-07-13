@@ -4,6 +4,8 @@ class UserInterface {
     idCard: string;
     name: string;
     surname: string;
+    birthDate: Date;
+    genre: string;
     username: string;
     password: string;
     role: number;

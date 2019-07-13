@@ -9,6 +9,8 @@ var UserSchema = new Schema({
     idCard: { type: String },
     name: { type: String, required: true },
     surname: { type: String, required: true },
+    birthDate: { type: Number, required: true },
+    genre: { type: String, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
     role: { type: Number, ref: 'Role', required: true },

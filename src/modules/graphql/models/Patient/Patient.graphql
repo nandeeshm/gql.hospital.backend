@@ -19,6 +19,8 @@ type Patient implements UserInterface {
     idCard: String
     name: String
     surname: String
+    birthDate: DateTime
+    genre: String
     username: String
     role: Int
     token: String
@@ -26,9 +28,7 @@ type Patient implements UserInterface {
     createdAt: DateTime
     updatedAt: DateTime
     enabled: Boolean
-    birthDate: DateTime
-    # TODO implement the specific resolver in order to get the genre in text format.
-    genre: String
+    deceased: Boolean
     # TODO replace this field type with the History object type, once it's created.
     historyId: ID
 }

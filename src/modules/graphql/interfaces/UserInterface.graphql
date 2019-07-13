@@ -4,6 +4,8 @@ interface UserInterface {
     idCard: String
     name: String
     surname: String
+    birthDate: DateTime
+    genre: String
     username: String
     role: Int
     token: String
