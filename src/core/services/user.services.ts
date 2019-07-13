@@ -1,76 +1,39 @@
 import logger from "@logger";
 
-// REMOVE the 'plainToClass' import.
-import { plainToClass }          from 'class-transformer';
-
-import { 
-    ApiError,
-    UserDoesNotExistError,
-    UserBadRequestError
-} from '@entities/ApiError';
 import { User } from '@entities/User';
 
-// REMOVE moving this import to the specific adapter.
-import { getUserById } from '@dbRequests';
+import * as ports from '@ports';
 
-// REMOVE the 'mockedUsers' structure.
-let mockedUsers = plainToClass(
-    User,
-    [
-        {
-            id: 'user1',
-            name: 'John',
-            surname: 'Doe',
-            username: 'jhondoe',
-            password: '123456',
-            role: 3,
-            token: '',
-            lastLoginAt: new Date(),
-            createdAt: new Date(),
-            updatedAt: new Date()
-        },
-        {
-            id: 'user2',
-            name: 'Mike',
-            surname: 'Wazowsky',
-            username: 'mikewazowsky',
-            password: '123456',
-            role: 2,
-            token: '',
-            lastLoginAt: new Date(),
-            createdAt: new Date(),
-            updatedAt: new Date()
-        },
-        {
-            id: 'user3',
-            name: 'Jose',
-            surname: 'Grillo',
-            username: 'pepitogrillo',
-            password: '123456',
-            role: 1,
-            token: '',
-            lastLoginAt: new Date(),
-            createdAt: new Date(),
-            updatedAt: new Date()
-        },
-    ]
-);
+// ###############################################################
+// ##########           READING OPERATIONS              ##########
+// ###############################################################
 
-const getUser = async (userId: string): Promise<User | ApiError> => {
+const checkIfUserExists = async (searchingParam: string, paramValue: string): Promise<User | null> => {
     try {
-        // TODO access the persisted users and get the selected one by its user ID.
-        let obtainedUser = await getUserById(userId);
-        return (obtainedUser) ? plainToClass(User, obtainedUser) : new UserDoesNotExistError();
+        return await ports.checkIfUserExists(searchingParam, paramValue);
     } catch (error) {
-        return new UserBadRequestError(error.message);
+        logger.error('(service) Checking if user already existis.', error.message);
+        throw error;
     }
 };
 
-// const getUsers = async (): Promise<User[] | undefined> => {
-//     return mockedUsers;
-// };
+// ###############################################################
+// ##########           PARSING OPERATIONS              ##########
+// ###############################################################
+
+const parseUserFromDatabase = (rawObjectData: any) => {
+    if (rawObjectData && Object.keys(rawObjectData).length > 0) {
+        let parsedObject = JSON.parse(JSON.stringify(rawObjectData));
+        parsedObject.id = parsedObject._id;
+        delete parsedObject._id;
+    
+        return parsedObject;
+    }
+    
+    return rawObjectData;
+};
 
 export {
-    getUser,
-    // getUsers
+    checkIfUserExists,
+    parseUserFromDatabase
 }

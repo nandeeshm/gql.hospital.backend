@@ -24,18 +24,6 @@ const _convert = (fieldName: string, valueToBeConverted: string) => {
 //     }
 // };
 
-const parseIdFieldForSingleObject = (rawObjectData: any) => {
-    if (rawObjectData && Object.keys(rawObjectData).length > 0) {
-        let parsedObject = JSON.parse(JSON.stringify(rawObjectData));
-        parsedObject.id = parsedObject._id;
-        delete parsedObject._id;
-    
-        return parsedObject;
-    }
-    
-    return rawObjectData;
-};
-
 // const parseIdFieldForArrayOfObjects = (setOfRawObjects) => {
 //     try {
 //         if (!setOfRawObjects || Array !== setOfRawObjects.constructor) {
@@ -65,7 +53,6 @@ const test = {
 
 export {
     fieldIdConverter,
-    parseIdFieldForSingleObject,
     // parseIdFieldForArrayOfObjects,
     test
 };

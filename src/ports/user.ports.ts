@@ -4,11 +4,19 @@ import { User } from '@entities/User';
 import * as adapters from '@adapters';
 
 // ###############################################################
-// ##########           GETTING OPERATIONS              ##########
+// ##########           READING OPERATIONS              ##########
 // ###############################################################
 
 const getUser = async (userId: string): Promise<User | ApiError> => {
     return await adapters.getUser(userId);
+};
+
+const checkIfUserExists = async (searchingParam: string, paramValue: string): Promise<User | null> => {
+    try {
+        return await adapters.checkIfUserExists(searchingParam, paramValue);
+    } catch (error) {
+        throw error;
+    }
 };
 
 // ###############################################################
@@ -17,4 +25,5 @@ const getUser = async (userId: string): Promise<User | ApiError> => {
 
 export {
     getUser,
+    checkIfUserExists
 }

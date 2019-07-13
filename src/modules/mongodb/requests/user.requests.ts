@@ -1,8 +1,7 @@
 import logger from "@logger";
 
 import { 
-    fieldIdConverter, 
-    parseIdFieldForSingleObject 
+    fieldIdConverter
 } from '../common/fieldIdConverter';
 import { models } from '@mongodb';
 
@@ -13,11 +12,9 @@ import { models } from '@mongodb';
 const getUserById = async (userId: string) => {
     logger.trace('Getting user by ID:', userId);
     try {
-        // validate.users.userId(userId, 'The user\'s ID must be defined in order to get the user data.');
         let criteria = { _id: fieldIdConverter['userId'](userId) };
         let projection = { 'locale': 0 };
-        let result = await models.UserModel.findOne(criteria, projection).lean().exec();
-        return parseIdFieldForSingleObject(result);
+        return await models.UserModel.findOne(criteria, projection).lean().exec();
     } catch (error) {
         logger.error(`(getUserById) - ${error.message} ${error.description}`);
         throw new Error((error.description) ? error.description : error.message);
@@ -26,11 +23,9 @@ const getUserById = async (userId: string) => {
 
 const getUserByUsername = async (username: string) => {
     try {
-        // validate.users.userId(userId, 'The user\'s ID must be defined in order to get the user data.');
         let criteria = { username };
         let projection = { 'locale': 0 };
-        let result = await models.UserModel.findOne(criteria, projection).lean().exec();
-        return parseIdFieldForSingleObject(result);
+        return await models.UserModel.findOne(criteria, projection).lean().exec();
     } catch (error) {
         logger.error(`(getUserByUsername) - ${error.message} ${error.description}`);
         throw new Error((error.description) ? error.description : error.message);
@@ -39,14 +34,21 @@ const getUserByUsername = async (username: string) => {
 
 const getUserByToken = async (token: string) => {
     try {
-        // validate.users.userId(userId, 'The user\'s ID must be defined in order to get the user data.');
         let criteria = { token };
         let projection = { 'locale': 0 };
-        let result = await models.UserModel.findOne(criteria, projection).lean().exec();
-        return parseIdFieldForSingleObject(result);
+        return await models.UserModel.findOne(criteria, projection).lean().exec();
     } catch (error) {
         logger.error(`(getUserByUsername) - ${error.message} ${error.description}`);
         throw new Error((error.description) ? error.description : error.message);
+    }
+};
+
+const checkIfUserExists = async (searchingParam: string, paramValue: string) => {
+    try {
+        let criteria = JSON.parse(`{ "${searchingParam}": "${paramValue}" }`);
+        return await models.UserModel.findOne(criteria).lean().exec();
+    } catch (error) {
+        throw error;
     }
 };
 
@@ -56,8 +58,7 @@ const getUserByToken = async (token: string) => {
 
 const updateUserToken = async (userId: string, newToken: string) => {
     try {
-        // validate.users.userId(userId, 'The user\'s ID must be defined in order to get the user data.');
-        let result = await models
+        return await models
             .UserModel
             .findByIdAndUpdate(
                 fieldIdConverter['userId'](userId), 
@@ -65,7 +66,6 @@ const updateUserToken = async (userId: string, newToken: string) => {
                 { new: true })
             .lean()
             .exec();
-        return parseIdFieldForSingleObject(result);
     } catch (error) {
         logger.error(`(updateUserToken) - ${error.message} ${error.description}`);
         throw new Error((error.description) ? error.description : error.message);
@@ -74,8 +74,7 @@ const updateUserToken = async (userId: string, newToken: string) => {
 
 const updateUserLoginData = async (userId: string, newToken: string) => {
     try {
-        // validate.users.userId(userId, 'The user\'s ID must be defined in order to get the user data.');
-        let result = await models
+        return await models
             .UserModel
             .findByIdAndUpdate(
                 fieldIdConverter['userId'](userId), 
@@ -83,7 +82,6 @@ const updateUserLoginData = async (userId: string, newToken: string) => {
                 { new: true })
             .lean()
             .exec();
-        return parseIdFieldForSingleObject(result);
     } catch (error) {
         logger.error(`(updateUserToken) - ${error.message} ${error.description}`);
         throw new Error((error.description) ? error.description : error.message);
@@ -94,6 +92,7 @@ export {
     getUserById,
     getUserByUsername,
     getUserByToken,
+    checkIfUserExists,
     updateUserToken,
     updateUserLoginData
 };
