@@ -2,6 +2,18 @@
 # import ApiError from '../ApiError/ApiError.graphql'
 # import DateTime from '../../scalars//DateTime/DateTime.graphql'
 
+input DoctorInput {
+    socialCareNumber: String!
+    idCard: String!
+    name: String!
+    surname: String!
+    username: String
+    birthDate: DateTime
+    membershipNumber: String!
+    # TODO replace this field type with the MedicalSpeciality object type, once it's created.
+    specialities: [ID]
+}
+
 type Doctor implements UserInterface {
     id: ID
     socialCareNumber: String
@@ -17,12 +29,16 @@ type Doctor implements UserInterface {
     enabled: Boolean
     membershipNumber: String
     # TODO replace this field type with the MedicalSpeciality object type, once it's created.
-    speciality: ID
-    boundPatients: [ID]
+    specialities: [ID]
+    assignedPatients: [ID]
 }
 
 union DoctorUnion = Doctor | ApiError
 
 type Query {
     getDoctorById(id: String!): DoctorUnion!
+}
+
+type Mutation {
+    createNewDoctor(data: DoctorInput!): DoctorUnion!
 }

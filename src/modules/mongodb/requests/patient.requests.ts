@@ -1,4 +1,3 @@
-import { Patient } from '@entities/Patient';
 import logger from "@logger";
 
 import { 
@@ -6,6 +5,7 @@ import {
     parseIdFieldForSingleObject 
 } from '../common/fieldIdConverter';
 import { models } from '@mongodb';
+import { Patient } from '@entities/Patient';
 
 // ###############################################################
 // ##########           CREATING OPERATIONS             ##########

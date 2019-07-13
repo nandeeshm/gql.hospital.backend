@@ -5,6 +5,25 @@ import {
     parseIdFieldForSingleObject 
 } from '../common/fieldIdConverter';
 import { models } from '@mongodb';
+import { Doctor } from '@entities/Doctor';
+
+// ###############################################################
+// ##########           CREATING OPERATIONS             ##########
+// ###############################################################
+
+const createNewDoctor = async (newDoctorData: Doctor) => {
+    logger.trace('(ddbb) - Persisting a new doctor ...');
+    try {
+        let persistedDoctor = await models
+            .DoctorModel
+            .create(newDoctorData);
+        logger.info('(ddbb) - New doctor successfully persisted with ID:', persistedDoctor._id);
+        return parseIdFieldForSingleObject(persistedDoctor);
+    } catch (error) {
+        logger.error(`(ddbb - createNewDoctor) - ${error.message} ${error.description}`);
+        throw new Error((error.description) ? error.description : error.message);
+    }
+};
 
 // ###############################################################
 // ##########            READING OPERATIONS             ##########
@@ -29,5 +48,6 @@ const getDoctorById = async (doctorId: string) => {
 // ###############################################################
 
 export {
+    createNewDoctor,
     getDoctorById
 };

@@ -18,8 +18,8 @@ var DoctorSchema = new Schema({
     updatedAt: { type: Number, required: true },
     enabled: { type: Boolean, required: true },
     membershipNumber: { type: String, required: true },
-    speciality: { type: Schema.Types.ObjectId },
-    boundPatients: { type: [Schema.Types.ObjectId] },
+    specialities: { type: [Schema.Types.ObjectId] },
+    assignedPatients: { type: [Schema.Types.ObjectId] },
 });
 
 const DoctorModel = mongoose.model<Doctor & mongoose.Document>('Doctor', DoctorSchema);

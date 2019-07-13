@@ -1,3 +1,5 @@
+import logger from '@logger';
+
 import { ApiError }  from '@entities/ApiError';
 import { Doctor }    from '@entities/Doctor';
 
@@ -9,7 +11,12 @@ export default {
             return await ports.getDoctorById(args.id);
         }
     },
-    Mutation: {},
+    Mutation: {
+        createNewDoctor: async (parentValue: any, args: any, context: any): Promise<Doctor | ApiError> => {
+            logger.info('(gql) - Creating a new doctor ...');
+            return await ports.createNewDoctor(args.data);
+        }
+    },
     Unions: {
         DoctorUnion: {
             __resolveType(parentValues: Doctor | ApiError) {

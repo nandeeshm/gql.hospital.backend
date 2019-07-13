@@ -7,8 +7,8 @@ class Doctor implements UserInterface {
     name: string;
     surname: string;
     username: string;
-    private _password: string;
-    role: number;
+    password: string;
+    role: number = 29;
     token: string;
     lastLoginAt: Date;
     createdAt: Date;
@@ -16,16 +16,8 @@ class Doctor implements UserInterface {
     enabled: boolean = true;
 
     memershipNumber: string;
-    speciality: string;
-    boundPatients: string[];
-
-    get password(): string {
-        return this._password;
-    }
-
-    set password(password: string) {
-        this._password = password;
-    }
+    speciality: string[];
+    assignedPatients: string[];
 }
 
 export default Doctor;

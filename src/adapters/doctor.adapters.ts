@@ -1,13 +1,28 @@
+import logger from '@logger';
 import { plainToClass } from 'class-transformer';
 
 import { 
     ApiError,
-    UserDoesNotExistError,
-    UserBadRequestError
+    DoctorBadRequestError,
+    DoctorDoesNotExistError
 } from '@entities/ApiError';
 import { Doctor } from '@entities/Doctor';
 
 import * as dbRequests from '@dbRequests';
+
+// ###############################################################
+// ##########           CREATING OPERATIONS             ##########
+// ###############################################################
+
+const createNewDoctor = async (DoctorData: Doctor): Promise<Doctor | ApiError> => {
+    try {
+        let createdDoctor = await dbRequests.createNewDoctor(DoctorData);
+        return (createdDoctor) ? plainToClass(Doctor, createdDoctor) : new DoctorDoesNotExistError();
+    } catch (error) {
+        logger.error(`(createNewDoctor - adapter) - ${error.message} ${error.description}`);
+        return new DoctorBadRequestError(error.message);
+    }
+};
 
 // ###############################################################
 // ##########            READING OPERATIONS             ##########
@@ -16,9 +31,9 @@ import * as dbRequests from '@dbRequests';
 const getDoctorById = async (doctorId: string): Promise<Doctor | ApiError> => {
     try {
         let obtainedDoctor = await dbRequests.getDoctorById(doctorId);
-        return (obtainedDoctor) ? plainToClass(Doctor, obtainedDoctor) : new UserDoesNotExistError();
+        return (obtainedDoctor) ? plainToClass(Doctor, obtainedDoctor) : new DoctorDoesNotExistError();
     } catch (error) {
-        return new UserBadRequestError(error.message);
+        return new DoctorBadRequestError(error.message);
     }
 };
 
@@ -27,5 +42,6 @@ const getDoctorById = async (doctorId: string): Promise<Doctor | ApiError> => {
 // ###############################################################
 
 export {
+    createNewDoctor,
     getDoctorById
 }

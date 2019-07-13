@@ -16,6 +16,7 @@ const Query = {
 
 const Mutation = {
     ...AuthenticationResolvers.Mutation,
+    ...DoctorResolvers.Mutation,
     ...PatientResolvers.Mutation
 };
 
