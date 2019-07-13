@@ -1,3 +1,4 @@
+import { MedicalHistory } from '@entities/MedicalHistory';
 import logger                   from '@logger';
 import { 
     ApiError, 
@@ -15,6 +16,7 @@ import { initializeNewPatient } from '@services/patient.services';
 // ##########           CREATING OPERATIONS             ##########
 // ###############################################################
 
+// TODO createNewPatient Remove persisted elements if some step fails.
 const createNewPatient = async (patientData: Patient): Promise<Patient | ApiError> => {
     logger.trace('(ports) - Creating a new patient ...');
     try {
@@ -33,13 +35,19 @@ const createNewPatient = async (patientData: Patient): Promise<Patient | ApiErro
         let persistedPatient = await adapters.getPatient('_id', persistedUser!.id);
 
         if (persistedPatient === null) {
-            // TODO Create a new history and assign its id to this patient.
             initializedPatient.id = persistedUser!.id;
             logger.trace('(ports) - Creating a new patient ...');
             persistedPatient = await adapters.createNewPatient(initializedPatient);
         } else {
             logger.trace('(ports) - Patient already exists.');
             return new PatientAlreadyExistsError();
+        }
+
+        let newMedicalHistory = new MedicalHistory(persistedUser!.id, persistedUser!.socialCareNumber);
+        let persistedMedicalHistory = await adapters.createNewMedicalHistory(newMedicalHistory);
+
+        if (persistedMedicalHistory === null) {
+            throw new Error(`Medical history not created for patient with ID: ${persistedUser!.id}`);
         }
         
         return Object.assign(persistedPatient!, persistedUser!);

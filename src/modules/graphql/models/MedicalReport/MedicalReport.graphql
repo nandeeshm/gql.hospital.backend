@@ -1,0 +1,20 @@
+# import DateTime from '../../scalars/DateTime/DateTime.graphql'
+
+type MedicalReportVerification {
+    required: Boolean
+    requiredTo: String
+    verifiedBy: String
+    verifiedAt: DateTime
+    notes: String
+}
+
+type MedicalReport {
+    bindToReport: String
+    department: String
+    reportType: String
+    reportDate: DateTime
+    signedBy: DateTime
+    verification: MedicalReportVerification
+    content: String
+    attachedTests: [String]
+}

@@ -32,10 +32,15 @@ const Scalars = {
     DateTime
 };
 
+const FieldResolvers = {
+    Patient: PatientResolvers.Patient
+}
+
 export default {
     Query,
     Mutation,
     ...Unions,
     ...Interfaces,
-    ...Scalars
+    ...Scalars,
+    Patient: PatientResolvers.Patient
 };

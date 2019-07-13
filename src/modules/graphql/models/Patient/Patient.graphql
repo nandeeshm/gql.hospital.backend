@@ -1,4 +1,5 @@
 # import UserInterface from '../../interfaces/UserInterface.graphql'
+# import MedicalHistory from '../MedicalHistory/MedicalHistory.graphql'
 # import ApiError from '../ApiError/ApiError.graphql'
 # import DateTime from '../../scalars//DateTime/DateTime.graphql'
 
@@ -28,8 +29,7 @@ type Patient implements UserInterface {
     updatedAt: DateTime
     enabled: Boolean
     deceased: Boolean
-    # TODO replace this field type with the History object type, once it's created.
-    historyId: ID
+    medicalHistory: MedicalHistory
 }
 
 union PatientUnion = Patient | ApiError

@@ -1,0 +1,46 @@
+import logger from '@logger';
+
+import { 
+    ApiError, 
+    CreatingDoctorError, 
+    DoctorAlreadyExistsError,
+    DoctorDoesNotExistError,
+    GettingDoctorError
+} from '@entities/ApiError';
+
+import * as adapters from '@adapters';
+import { MedicalHistory } from '@entities/MedicalHistory';
+import { MedicalHistoryDoesNotExistError, GettingMedicalHistoryError } from '@entities/ApiError/MedicalHistoryErrors';
+
+// ###############################################################
+// ##########           CREATING OPERATIONS             ##########
+// ###############################################################
+
+// ###############################################################
+// ##########           GETTING OPERATIONS              ##########
+// ###############################################################
+
+const getMedicalHistory = async (patientId: string): Promise<MedicalHistory | ApiError> => {
+    logger.trace('(ports) - Retreaving a medical report for user with ID:', patientId);
+    try {
+        let persistedMedicalReport = await adapters.getMedicalHistory('_id', patientId);
+        
+        if (persistedMedicalReport === null) {
+            logger.trace('(ports) - The patien has not any medical history assigned.');
+            return new MedicalHistoryDoesNotExistError('The patien has not any medical history assigned.');
+        }
+        
+        return persistedMedicalReport;
+    } catch (error) {
+        logger.error(`(createNewDoctor - port) - ${error.message} ${error.description}`);
+        return new GettingMedicalHistoryError(error.message);
+    }
+};
+
+// ###############################################################
+// ##########           UPDATING OPERATIONS             ##########
+// ###############################################################
+
+export {
+    getMedicalHistory
+}
