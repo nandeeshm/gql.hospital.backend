@@ -1,18 +1,18 @@
 const rolesDataToBePersisted = [
     {
         'name': 'sysadmin',
-        'value': 39
+        'value': 30
     },
     {
         'name': 'doctor',
-        'value': 29
+        'value': 20
     },
     {
         'name': 'nurse',
-        'value': 19
+        'value': 10
     },
     {
         'name': 'patient',
-        'value': 9
+        'value': 0
     }
 ];
