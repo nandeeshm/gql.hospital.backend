@@ -2,15 +2,12 @@ import logger from '@logger';
 
 import { 
     ApiError, 
-    CreatingDoctorError, 
-    DoctorAlreadyExistsError,
-    DoctorDoesNotExistError,
-    GettingDoctorError
+    MedicalHistoryDoesNotExistError, 
+    GettingMedicalHistoryError
 } from '@entities/ApiError';
 
 import * as adapters from '@adapters';
 import { MedicalHistory } from '@entities/MedicalHistory';
-import { MedicalHistoryDoesNotExistError, GettingMedicalHistoryError } from '@entities/ApiError/MedicalHistoryErrors';
 
 // ###############################################################
 // ##########           CREATING OPERATIONS             ##########

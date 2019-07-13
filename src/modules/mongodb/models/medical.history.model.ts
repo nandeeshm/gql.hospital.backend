@@ -1,7 +1,7 @@
 import mongoose = require('mongoose');
 
 import { MedicalHistory } from '@entities/MedicalHistory';
-import MedicalReportSchema from './medical.report.model';
+import { MedicalReportSchema } from './medical.report.model';
 
 var Schema = mongoose.Schema;
 

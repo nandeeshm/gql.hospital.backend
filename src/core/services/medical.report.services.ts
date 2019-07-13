@@ -1,3 +1,24 @@
+import logger from '@logger';
+
+import { MedicalReport } from '@entities/MedicalReport';
+
+// ###############################################################
+// ##########           GENERAL OPERATIONS              ##########
+// ###############################################################
+
+const initializeNewMedicalReport = async (newMedicalReportData: MedicalReport) => {
+    try {
+        let initializedMedicalReport: MedicalReport = Object.assign(new MedicalReport(), newMedicalReportData);
+
+        initializedMedicalReport.reportDate = new Date();
+
+        return initializedMedicalReport;
+    } catch (error) {
+        logger.error('(service) MedicalReport init error.', error.message);
+        throw error;
+    }
+};
+
 // ###############################################################
 // ##########           PARSING OPERATIONS              ##########
 // ###############################################################
@@ -27,6 +48,7 @@ const parseMedicalReportToDatabase = (rawObjectData: any) => {
 };
 
 export {
+    initializeNewMedicalReport,
     parseMedicalReportFromDatabase,
     parseMedicalReportToDatabase
 };

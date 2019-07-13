@@ -1,15 +1,17 @@
 import mongoose = require('mongoose');
 
-// import { MedicalReport } from '@entities/MedicalReport';
+import { MedicalReport } from '@entities/MedicalReport';
 
 var Schema = mongoose.Schema;
 
 var MedicalReportSchema = new Schema({
-    bindToReport: { type: Schema.Types.ObjectId },
-    department: { type: Schema.Types.ObjectId },
-    reportType: { type: Schema.Types.ObjectId },
+    bindToReport: { type: Schema.Types.ObjectId, required: true },
+    // TODO Refact the 'department' field once there is an entity with departments, in order to use IDs.
+    department: { type: String, required: true },
+    // TODO Refact the 'reportType' field once there is an entity with report types, in order to use IDs.
+    reportType: { type: String, required: true },
     reportDate: { type: Date, required: true },
-    signedBy: { type: Date, required: true },
+    signedBy: { type: Schema.Types.ObjectId, required: true },
     verification: {
         required: { type: Boolean, default: false },
         requiredTo: { type: Schema.Types.ObjectId },
@@ -21,8 +23,9 @@ var MedicalReportSchema = new Schema({
     attachedTests: { type: [Schema.Types.ObjectId] }
 });
 
-// const MedicalReportModel = mongoose.model<MedicalReport & mongoose.Document>('MedicalReport', MedicalReportSchema);
+const MedicalReportModel = mongoose.model<MedicalReport & mongoose.Document>('MedicalReport', MedicalReportSchema);
 
-// export default MedicalReportModel;
-
-export default MedicalReportSchema;
+export {
+    MedicalReportSchema,
+    MedicalReportModel
+};

@@ -2,3 +2,4 @@
 # import Query.*, * from './models/User/User.graphql'
 # import Query.*, Mutation.*, * from './models/Doctor/Doctor.graphql'
 # import Query.*, Mutation.*, * from './models/Patient/Patient.graphql'
+# import Query.*, Mutation.*, * from './models/MedicalReport/MedicalReport.graphql'

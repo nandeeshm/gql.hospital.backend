@@ -1,4 +1,23 @@
+# import ApiError from '../ApiError/ApiError.graphql'
 # import DateTime from '../../scalars/DateTime/DateTime.graphql'
+
+input MedicalReportVerificationInput {
+    required: Boolean!
+    requiredTo: String!
+    verifiedBy: String
+    verifiedAt: DateTime
+    notes: String
+}
+
+input MedicalReportInput {
+    bindToReport: String!
+    department: String!
+    reportType: String!
+    signedBy: String!
+    verification: MedicalReportVerificationInput
+    content: String!
+    attachedTests: [String]
+}
 
 type MedicalReportVerification {
     required: Boolean
@@ -13,8 +32,19 @@ type MedicalReport {
     department: String
     reportType: String
     reportDate: DateTime
-    signedBy: DateTime
+    signedBy: String
     verification: MedicalReportVerification
     content: String
     attachedTests: [String]
+}
+
+union MedicalReportUnion = MedicalReport | ApiError
+
+type Query {
+    medicalReporNonImplementedQuery: Boolean
+    testGetMedicalReportsByHistoryId(historyId: String!): [MedicalReportUnion]!
+}
+
+type Mutation {
+    createNewMedicalReport(data: MedicalReportInput!): MedicalReportUnion!
 }
