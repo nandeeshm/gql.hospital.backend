@@ -53,6 +53,19 @@ const getPatientById = async (patientId: string) => {
     }
 };
 
+const getAllPatients = async () => {
+    logger.trace('Getting all patients ...');
+    try {
+        // validate.users.patientId(patientId, 'The user\'s ID must be defined in order to get the user data.');
+        let criteria = {};
+        let projection = { 'locale': 0 };
+        return await models.PatientModel.find(criteria, projection).lean().exec();
+    } catch (error) {
+        logger.error(`(getPatientById) - ${error.message} ${error.description}`);
+        throw new Error((error.description) ? error.description : error.message);
+    }
+};
+
 // ###############################################################
 // ##########           UPDATING OPERATIONS             ##########
 // ###############################################################
@@ -60,5 +73,6 @@ const getPatientById = async (patientId: string) => {
 export {
     createNewPatient,
     getPatient,
-    getPatientById
+    getPatientById,
+    getAllPatients
 };

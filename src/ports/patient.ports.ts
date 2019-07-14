@@ -80,8 +80,37 @@ const getPatientById = async (patientId: string): Promise<Patient | ApiError> =>
         
         return Object.assign(persistedPatient!, persistedUser!);
     } catch (error) {
-        logger.error(`(createNewPatient - port) - ${error.message} ${error.description}`);
+        logger.error(`(getPatientById - port) - ${error.message} ${error.description}`);
         return new GettingPatientError(error.message);
+    }
+};
+
+const getAllPatients = async (): Promise<Patient[] | ApiError> => {
+    logger.trace('(ports) - Retreaving all patients ...');
+    try {
+        let persistedPatients = await adapters.getAllPatients();
+        
+        if (persistedPatients === null) {
+            logger.trace('(ports) - The patient\'s user doesn\'t exist.');
+            return [];
+            // return new PatientDoesNotExistError('There are no patients recorded.');
+        }
+
+        return await Promise.all(persistedPatients
+            .map(async patient => {
+                let boundUser = await adapters.getUser('_id', patient.id);
+                if (boundUser) {
+                    return Object.assign(patient!, boundUser!);
+                } else {
+                    logger.error(`(getAllPatients - port) - bound user not found for patient with ID: ${patient.id}`);
+                    return patient;
+                }
+            })
+        );
+    } catch (error) {
+        logger.error(`(getAllPatients - port) - ${error.message} ${error.description}`);
+        return [];
+        // return new GettingPatientError(error.message);
     }
 };
 
@@ -92,4 +121,5 @@ const getPatientById = async (patientId: string): Promise<Patient | ApiError> =>
 export {
     createNewPatient,
     getPatientById,
+    getAllPatients
 }

@@ -19,6 +19,9 @@ export default {
     Query: {
         getPatientById: async (parentValues: any, args: any, context: any): Promise<Patient | ApiError> => {
             return await ports.getPatientById(args.id);
+        },
+        getAllPatients: async (parentValues: any, args: any, context: any): Promise<Patient[] | ApiError> => {
+            return await ports.getAllPatients();
         }
     },
     Mutation: {
@@ -38,6 +41,17 @@ export default {
                     return null;
                 }
             }
-        }
+        },
+        // PatientArrayUnion: {
+        //     __resolveType(parentValuess: Patient[] | ApiError) {
+        //         if ((parentValuess as Patient[]).length > 0 && (parentValuess as Patient[])[0] instanceof Patient) {
+        //             return 'Patient[]';
+        //         } else if (parentValuess instanceof ApiError) {
+        //             return 'ApiError';
+        //         } else {
+        //             return null;
+        //         }
+        //     }
+        // }
     }
 };

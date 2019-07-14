@@ -51,6 +51,17 @@ const getPatientById = async (patientId: string): Promise<Patient | ApiError> =>
     }
 };
 
+const getAllPatients = async (): Promise<Patient[] | null> => {
+    try {
+        let obtainedPatients = await dbRequests.getAllPatients();
+        return (obtainedPatients) ? 
+            obtainedPatients.map((patient: any) => plainToClass(Patient, parsePatientFromDatabase(patient))) : 
+            null;
+    } catch (error) {
+        throw error;
+    }
+};
+
 // ###############################################################
 // ##########           UPDATING OPERATIONS             ##########
 // ###############################################################
@@ -58,5 +69,6 @@ const getPatientById = async (patientId: string): Promise<Patient | ApiError> =>
 export {
     createNewPatient,
     getPatient,
-    getPatientById
+    getPatientById,
+    getAllPatients
 }

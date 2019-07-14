@@ -33,9 +33,12 @@ type Patient implements UserInterface {
 }
 
 union PatientUnion = Patient | ApiError
+# TODO Research how to create a union that includes an array.
+# union PatientArrayUnion = [Patient] | ApiError
 
 type Query {
     getPatientById(id: String!): PatientUnion!
+    getAllPatients: [Patient]!
 }
 
 type Mutation {
