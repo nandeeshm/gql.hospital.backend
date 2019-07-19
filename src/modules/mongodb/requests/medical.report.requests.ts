@@ -30,7 +30,12 @@ const getMedicalReports = async (searchingParam: string, paramValue: string) => 
     try {
         let criteria = JSON.parse(`{ "${searchingParam}": "${paramValue}" }`);
         let projection = { 'locale': 0 };
-        return await models.MedicalReportModel.find(criteria, projection).lean().exec();
+        return await models
+            .MedicalReportModel
+            .find(criteria, projection)
+            .sort('-reportDate')
+            .lean()
+            .exec();
     } catch (error) {
         logger.error(`(getMedicalReportById) - ${error.message} ${error.description}`);
         throw new Error((error.description) ? error.description : error.message);
