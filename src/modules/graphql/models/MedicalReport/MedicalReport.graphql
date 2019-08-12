@@ -28,6 +28,7 @@ type MedicalReportVerification {
 }
 
 type MedicalReport {
+    id: ID
     bindToReport: String
     department: String
     reportType: String
