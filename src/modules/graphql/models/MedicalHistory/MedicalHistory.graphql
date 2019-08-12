@@ -1,6 +1,7 @@
 # import MedicalReport from '../MedicalReport/MedicalReport.graphql';
 
 type MedicalHistory {
+    id: ID
     socialCareNumber: String!
     medicalReports: [MedicalReport]
 }
