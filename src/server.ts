@@ -25,6 +25,11 @@ server
     .then(({ url }) => {
         logger.info(`Server ready at ${url}`);
         mongodb.connect();
+        // if (mongodb.mongodb.connections.length === 0) {
+        //     mongodb.connect();
+        // } else {
+        //     logger.info(`(server) - DDBB connection already established.`);
+        // }
     });
 
 declare const module: any;
@@ -32,6 +37,6 @@ if (module.hot) {
     module.hot.accept();
     module.hot.dispose(() => {
         server.stop();
-        mongodb.disconnect();
+        // mongodb.disconnect();
     });
 }
