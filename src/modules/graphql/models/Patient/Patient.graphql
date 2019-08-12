@@ -37,8 +37,7 @@ union PatientUnion = Patient | ApiError
 # union PatientArrayUnion = [Patient] | ApiError
 
 type Query {
-    # getPatientById(id: String!): PatientUnion!
-    getPatientById(id: String!): Patient!
+    getPatientById(id: String!): PatientUnion!
     getAllPatients: [Patient]!
 }
 
