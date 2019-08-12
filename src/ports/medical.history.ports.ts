@@ -20,14 +20,14 @@ import { MedicalHistory } from '@entities/MedicalHistory';
 const getMedicalHistory = async (patientId: string): Promise<MedicalHistory | ApiError> => {
     logger.trace('(ports) - Retreaving a medical report for user with ID:', patientId);
     try {
-        let persistedMedicalReport = await adapters.getMedicalHistory('_id', patientId);
-        
-        if (persistedMedicalReport === null) {
+        let persistedMedicalHistory = await adapters.getMedicalHistory('_id', patientId);
+
+        if (persistedMedicalHistory === null) {
             logger.trace('(ports) - The patien has not any medical history assigned.');
             return new MedicalHistoryDoesNotExistError('The patien has not any medical history assigned.');
         }
         
-        return persistedMedicalReport;
+        return persistedMedicalHistory;
     } catch (error) {
         logger.error(`(createNewDoctor - port) - ${error.message} ${error.description}`);
         return new GettingMedicalHistoryError(error.message);
