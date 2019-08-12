@@ -30,9 +30,9 @@ const createNewMedicalReport = async (newMedicalReport: MedicalReport): Promise<
 
 const getMedicalReports = async (searchingParam: string, paramValue: string): Promise<MedicalReport[] | null> => {
     try {
-        let obtainedMedicalReport = await dbRequests.getMedicalReports(searchingParam, paramValue);
-        return (obtainedMedicalReport) ? 
-            plainToClass(MedicalReport, parseMedicalReportFromDatabase(obtainedMedicalReport) as MedicalReport[]) : 
+        let obtainedMedicalReports = await dbRequests.getMedicalReports(searchingParam, paramValue);
+        return (obtainedMedicalReports) ? 
+            plainToClass(MedicalReport, obtainedMedicalReports.map(parseMedicalReportFromDatabase) as MedicalReport[]) : 
             null;
     } catch (error) {
         throw error;
