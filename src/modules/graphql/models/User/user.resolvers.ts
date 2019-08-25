@@ -1,5 +1,8 @@
 import { ApiError }  from '@entities/ApiError';
-import { User }      from '@entities/User';
+import { 
+    User,
+    NewUserIdentificationData
+} from '@entities/User';
 
 import * as ports    from '@ports';
 
@@ -8,6 +11,9 @@ export default {
         // getUser: async (parentValue: any, args: any, context: any): Promise<User | ApiError> => {
         //     return await ports.getUser(args.id);
         // }
+        getNewUserIdentificationData: (parentValue: any, args: any, context: any): NewUserIdentificationData => {
+            return ports.getNewUserIdentificationData();
+        }
     },
     Mutation: {},
     Unions: {

@@ -19,8 +19,14 @@ type User implements UserInterface {
     enabled: Boolean
 }
 
+type NewUserIdentificationData {
+    socialCareNumber: String!
+    idCard: String!
+}
+
 union UserUnion = User | ApiError
 
 type Query {
-    getUser(id: String!): UserUnion!
+    getUser(id: String!): UserUnion!,
+    getNewUserIdentificationData: NewUserIdentificationData!
 }

@@ -1,5 +1,7 @@
-import User from './user.entity';
+import User                      from './user.entity';
+import NewUserIdentificationData from './new.user.identification.entity';
 
 export {
-    User
+    User,
+    NewUserIdentificationData
 }

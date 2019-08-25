@@ -1,5 +1,9 @@
 import { ApiError } from '@entities/ApiError';
-import { User } from '@entities/User';
+import { 
+    User,
+    NewUserIdentificationData
+} from '@entities/User';
+import * as UserServices from '@services/user.services';
 
 import * as adapters from '@adapters';
 
@@ -19,11 +23,16 @@ const checkIfUserExists = async (searchingParam: string, paramValue: string): Pr
     }
 };
 
+const getNewUserIdentificationData = (): NewUserIdentificationData => {
+    return UserServices.generateNewUserIdentificationData();
+};
+
 // ###############################################################
 // ##########           UPDATING OPERATIONS             ##########
 // ###############################################################
 
 export {
     // getUser,
-    checkIfUserExists
+    checkIfUserExists,
+    getNewUserIdentificationData
 }
